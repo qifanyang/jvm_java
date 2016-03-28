@@ -11,8 +11,13 @@ public class ClassFileReader {
 
     private DataInput dataInput;
 
+    private int mark;//类似ByteBuffer的mark, 这里用于计算读取了多少数据
+    private int position;//类似ByteBuffer的position,记录当前位置
+
     public ClassFileReader(DataInput dataInput){
         this.dataInput = dataInput;
+        this.mark = 0;
+        this.position = 0;
     }
 
     public U1 readU1() throws IOException {

@@ -2,6 +2,8 @@ package vm.parser.cp;
 
 import vm.parser.*;
 
+import java.io.IOException;
+
 /**
  *
  * @author yangqf
@@ -14,7 +16,7 @@ public class ConstantUtf8Info implements IConstantPoolObject {
     U1 bytes[];//utf8编码的字节数组
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         length = reader.readU2();
         bytes = new U1[length.value];
         reader.readBytes(bytes);

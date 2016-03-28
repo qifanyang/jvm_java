@@ -4,6 +4,8 @@ import vm.parser.ClassFileReader;
 import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
 
+import java.io.IOException;
+
 /**
  *
  * @author yangqf
@@ -16,7 +18,7 @@ public class ConstantFloatInfo  implements IConstantPoolObject {
 
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         reader.readBytes(bytes);
     }
 }

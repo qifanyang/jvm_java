@@ -5,6 +5,8 @@ import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
+import java.io.IOException;
+
 /**
  *用于表示字段和方法,由名字和描述构成,当然这里也只是存储指向utf8_info的索引
  * @author yangqf
@@ -18,7 +20,7 @@ public class ConstantNameAndTypeInfo implements IConstantPoolObject {
 
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         name_index = reader.readU2();
         descriptor_index = reader.readU2();
     }

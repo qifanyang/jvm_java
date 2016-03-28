@@ -5,6 +5,8 @@ import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
+import java.io.IOException;
+
 /**
  *
  * @author yangqf
@@ -17,7 +19,7 @@ public class ConstantMethodRefInfo implements IConstantPoolObject {
     U2 name_and_type_index;
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         class_index = reader.readU2();
         name_and_type_index = reader.readU2();
     }

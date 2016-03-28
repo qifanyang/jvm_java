@@ -5,6 +5,8 @@ import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
+import java.io.IOException;
+
 /**
  *表示方法类型,这里和name_and_type有点重复
  * @author yangqf
@@ -16,7 +18,7 @@ public class ConstantMethodTypeInfo implements IConstantPoolObject {
     U2 descriptor_index;
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         descriptor_index = reader.readU2();
     }
 }

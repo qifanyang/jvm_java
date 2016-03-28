@@ -5,9 +5,7 @@ package vm.parser;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-public interface IConstantPoolObject {
-
-    public void parse(ClassFileReader reader) throws Exception;
+public interface IConstantPoolObject extends Parser{
 
     public U1 getTag();
 

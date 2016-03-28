@@ -5,6 +5,8 @@ import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
+import java.io.IOException;
+
 /**
  * 用于表示字符串对象java.lang.String
  * @author yangqf
@@ -16,7 +18,7 @@ public class ConstantStringInfo implements IConstantPoolObject {
     U2 string_index;//指向constant_utf8_info的索引
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         string_index = reader.readU2();
     }
 }

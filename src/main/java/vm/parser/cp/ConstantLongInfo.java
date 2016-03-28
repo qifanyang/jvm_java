@@ -2,6 +2,8 @@ package vm.parser.cp;
 
 import vm.parser.*;
 
+import java.io.IOException;
+
 /**
  *
  * @author yangqf
@@ -15,7 +17,7 @@ public class ConstantLongInfo implements IConstantPoolObject {
 
 
     @Override
-    public void parse(ClassFileReader reader) throws Exception {
+    public void parse(ClassFileReader reader) throws IOException {
         reader.readBytes(high_bytes);
         reader.readBytes(low_bytes);
 

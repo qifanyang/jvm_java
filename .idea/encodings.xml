@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/ClassFileReader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/IAttributeObject.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/MethodInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/Parser.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/U1.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/U2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/U4.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/attribute/AttributeNameEnum.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/attribute/LineNumberTableAttribute.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/attribute/LocalVariableTableAttribute.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/attribute/SourceFileAttribute.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantDoubleInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantFloatInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantInterfaceMethodRefInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantInvokeDynamicInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantLongInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantMethodRefInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/ConstantPoolInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/TagEnum.java" charset="UTF-8" />
+  </component>
+</project>
