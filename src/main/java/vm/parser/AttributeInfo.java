@@ -69,10 +69,10 @@ public class AttributeInfo {
         attributeObject.parse(reader);
         attributes.add(attributeObject);
 
-        int remaining = attribute_length.value - (reader.position() - reader.markValue());
-        if(remaining > 0){
-            System.out.println("还有没读取完毕的 attribute , remaining = " + remaining);
-        }
+//        int remaining = attribute_length.value - (reader.position() - reader.markValue());
+//        if(remaining > 0){
+//            System.out.println("还有没读取完毕的 attribute , remaining = " + remaining);
+//        }
 
     }
 

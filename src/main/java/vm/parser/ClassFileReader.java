@@ -42,7 +42,6 @@ public class ClassFileReader {
         for(int i = 0; i < u1s.length; i++){
             u1s[i] = readU1();
         }
-        position+=u1s.length;
     }
 
     public void mark(){
