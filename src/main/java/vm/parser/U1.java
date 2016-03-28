@@ -13,4 +13,9 @@ public class U1 {
         u1.value = value;
         return u1;
     }
+
+    @Override
+    public String toString() {
+        return ""+value;
+    }
 }

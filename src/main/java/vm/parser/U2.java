@@ -12,4 +12,9 @@ public class U2 {
         u2.value = value;
         return u2;
     }
+
+    @Override
+    public String toString() {
+        return ""+value;
+    }
 }

@@ -242,6 +242,9 @@ public class ClassFileParser {
         ClassFileParser parser = new ClassFileParser(dataInput);
         parser.isDebug = true;
         parser.parse();
-        System.out.println(parser);
+        System.out.println();
+        System.out.println(parser.reader.position());
+        System.out.println("字段数量 = "+ parser.cf.getFields_count());
+        System.out.println("方法数量 = "+ parser.cf.getMethods_count());
     }
 }
