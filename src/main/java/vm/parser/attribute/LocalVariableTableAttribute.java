@@ -1,9 +1,6 @@
 package vm.parser.attribute;
 
-import vm.parser.ClassFileReader;
-import vm.parser.IAttributeObject;
-import vm.parser.U2;
-import vm.parser.U4;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -18,6 +15,11 @@ public class LocalVariableTableAttribute implements IAttributeObject{
     U2 local_variable_table_length;
     LocalVariableTable local_variable_tables[];
 
+    ClassFile cf;
+    public LocalVariableTableAttribute(ClassFile cf){
+        this.cf = cf;
+    }
+
     @lombok.Data
     static class LocalVariableTable{
         U2 start_pc;
@@ -29,8 +31,8 @@ public class LocalVariableTableAttribute implements IAttributeObject{
 
     @Override
     public void parse(ClassFileReader reader) throws IOException {
-        attribute_name_index = reader.readU2();
-        attribute_length = reader.readU4();
+//        attribute_name_index = reader.readU2();
+//        attribute_length = reader.readU4();
         local_variable_table_length = reader.readU2();
         local_variable_tables = new LocalVariableTable[local_variable_table_length.value];
 

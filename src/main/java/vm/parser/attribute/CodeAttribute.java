@@ -33,10 +33,13 @@ public class CodeAttribute implements IAttributeObject{
 
     ClassFile cf;
 
+    public CodeAttribute(ClassFile cf){
+        this.cf = cf;
+    }
     @Override
     public void parse(ClassFileReader reader) throws IOException {
-        attribute_name_index = reader.readU2();
-        attribute_length = reader.readU4();
+//        attribute_name_index = reader.readU2();
+//        attribute_length = reader.readU4();
         max_stack = reader.readU2();
         max_locals = reader.readU2();
         code_length = reader.readU4();

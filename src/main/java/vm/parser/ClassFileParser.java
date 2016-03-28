@@ -227,6 +227,7 @@ public class ClassFileParser {
 
         for(int i = 0; i < attributes_count.value; i++){
             AttributeInfo attributeInfo = new AttributeInfo();
+            attributeInfo.setCf(cf);
             attributeInfo.parse(reader);
             attributes[i] = attributeInfo;
         }
@@ -241,5 +242,6 @@ public class ClassFileParser {
         ClassFileParser parser = new ClassFileParser(dataInput);
         parser.isDebug = true;
         parser.parse();
+        System.out.println(parser);
     }
 }

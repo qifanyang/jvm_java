@@ -1,9 +1,6 @@
 package vm.parser.attribute;
 
-import vm.parser.ClassFileReader;
-import vm.parser.IAttributeObject;
-import vm.parser.U2;
-import vm.parser.U4;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -18,6 +15,11 @@ public class LineNumberTableAttribute implements IAttributeObject{
     U2 line_number_table_length;
     LineNumberTable line_number_table[];
 
+    ClassFile cf;
+    public LineNumberTableAttribute(ClassFile cf){
+        this.cf = cf;
+    }
+
     @lombok.Data
     static class LineNumberTable{
         U2 start_pc;
@@ -26,8 +28,8 @@ public class LineNumberTableAttribute implements IAttributeObject{
 
     @Override
     public void parse(ClassFileReader reader) throws IOException {
-        attribute_name_index = reader.readU2();
-        attribute_length = reader.readU4();
+//        attribute_name_index = reader.readU2();
+//        attribute_length = reader.readU4();
         line_number_table_length = reader.readU2();
         line_number_table = new LineNumberTable[line_number_table_length.value];
 
