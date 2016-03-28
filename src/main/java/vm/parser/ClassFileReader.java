@@ -22,16 +22,19 @@ public class ClassFileReader {
 
     public U1 readU1() throws IOException {
         int i = dataInput.readUnsignedByte();
+        position++;
         return U1.of(i);
     }
 
     public U2 readU2() throws IOException {
         int i = dataInput.readUnsignedShort();
+        position+=2;
         return U2.of(i);
     }
 
     public U4 readU4() throws IOException {
         int i = dataInput.readInt();
+        position+=4;
         return U4.of(i);
     }
 
@@ -39,5 +42,18 @@ public class ClassFileReader {
         for(int i = 0; i < u1s.length; i++){
             u1s[i] = readU1();
         }
+        position+=u1s.length;
+    }
+
+    public void mark(){
+        this.mark = position;
+    }
+
+    public int markValue(){
+        return this.mark;
+    }
+
+    public int position(){
+        return this.position;
     }
 }
