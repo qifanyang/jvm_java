@@ -32,6 +32,11 @@ public class ClassFileReader {
         return U2.of(i);
     }
 
+    /**
+     * 2^31=2147483648=2G, 单个字节码不可能有这么大,所以使用有符号的int,读取无符号4字节不会发生越界
+     * @return
+     * @throws IOException
+     */
     public U4 readU4() throws IOException {
         int i = dataInput.readInt();
         position+=4;
