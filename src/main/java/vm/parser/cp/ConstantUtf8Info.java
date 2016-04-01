@@ -3,6 +3,8 @@ package vm.parser.cp;
 import vm.parser.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 /**
  *
@@ -20,5 +22,28 @@ public class ConstantUtf8Info implements IConstantPoolObject {
         length = reader.readU2();
         bytes = new U1[length.value];
         reader.readBytes(bytes);
+    }
+
+    public String string(){
+        if(null == bytes || bytes.length == 0){
+            return "";
+        }
+        byte[] byteBytes = new byte[bytes.length];
+        for(int i = 0; i < bytes.length; i++){
+            byteBytes[i] = (byte) bytes[i].value;
+        }
+        try {
+            return new String(byteBytes, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        return "ConstantUtf8Info{" +
+                "bytes=" + Arrays.toString(bytes) +
+                '}';
     }
 }

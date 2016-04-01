@@ -5,8 +5,22 @@
  */
 public class A {
     private int x;
+    private A a = new A();
 
+    public A(){
+        int y = 1;
+    }
     private void test(){
         this.x = 55555555;
+        int xx = s(6);
+        System.out.println(xx);
+    }
+
+    public int s(int z){
+    return z;
+    }
+
+    public static void main(String[] args) {
+        A a = new A();
     }
 }

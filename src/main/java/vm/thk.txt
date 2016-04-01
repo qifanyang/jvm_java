@@ -1,6 +1,0 @@
-1. 使用U1,U2,U4
-2. 包装DataInput,读取方法改为readU1,readU2,readU4
-3  解析attribute,因attribute类型比较多,和常量池差不多,工作量大
-
-重构过程:
-1,重新编写constant_pool_xxx_info

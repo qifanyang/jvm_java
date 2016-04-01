@@ -40,13 +40,12 @@ public class AttributeInfo {
         }
 
         ConstantUtf8Info utf8Info = (ConstantUtf8Info) constantPoolObject;
-        U1[] bytes = utf8Info.getBytes();
-        //TODO 这里强转byte, 估计有问题...
-        byte[] byteBytes = new byte[bytes.length];
-        for(int i = 0; i < bytes.length; i++){
-            byteBytes[i] = (byte) bytes[i].value;
-        }
-        String attributeName = new String(byteBytes, "utf-8");
+//        U1[] bytes = utf8Info.getBytes();
+//        byte[] byteBytes = new byte[bytes.length];
+//        for(int i = 0; i < bytes.length; i++){
+//            byteBytes[i] = (byte) bytes[i].value;
+//        }
+        String attributeName = utf8Info.string();
 
         IAttributeObject attributeObject = null;
         switch (attributeName){
