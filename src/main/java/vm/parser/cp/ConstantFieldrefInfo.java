@@ -25,5 +25,9 @@ public class ConstantFieldrefInfo implements IConstantPoolObject {
         name_and_type_index = reader.readU2();
     }
 
+    public String string(){
+
+        return "";
+    }
 
 }

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 @lombok.Data
 @lombok.EqualsAndHashCode(callSuper = true)
 public class ThreadStack extends Thread{
-    private int pc;
+    private int pc;//进入方法栈时重置pc为0
     private final static int MAX_STACK_FRAME_DEEP = 1000;
     private LinkedList<StackFrame> frames = new LinkedList<>();
 
@@ -53,6 +53,9 @@ public class ThreadStack extends Thread{
                     e.printStackTrace();
                 }
             OpcodeExecuteUnit.execute(currentFrame);
+
+            //方法调用完成,当前栈帧弹出,上一个栈帧成为新的当前栈帧
+            currentFrame = frames.pop();
         }
     }
 }

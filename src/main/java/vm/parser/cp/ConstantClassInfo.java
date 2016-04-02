@@ -24,4 +24,8 @@ public class ConstantClassInfo implements IConstantPoolObject {
     }
 
 
+    @Override
+    public String string(){
+        return null;
+    }
 }

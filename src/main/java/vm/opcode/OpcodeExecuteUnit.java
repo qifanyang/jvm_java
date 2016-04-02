@@ -46,17 +46,19 @@ public class OpcodeExecuteUnit{
         System.out.println("执行方法:"+frame.getMethodInfo());
 
         U1[] code = frame.getCode();
-
-        for(U1 u1 : code){
+        int pc = frame.getThreadStack().getPc();
+        while(pc <= code.length){
+            U1 u1 = code[pc];
             Opcode opcode = opcodeMap.get(u1.value);
             if(opcode == null){
                 throw new IllegalStateException("非法字节码 , opcode = " + u1.value);
             }else{
-                opcode.operateAndIncPC(frame);
+                opcode.operate(frame);
             }
-
             System.out.println("opcode = " + opcode);
             frame.show();
+            pc = frame.getThreadStack().getPc()+1;
+            frame.getThreadStack().setPc(pc);
         }
 
     }

@@ -13,6 +13,4 @@ public interface Opcode{
     public void register();
 
     public Object operate(StackFrame frame);
-
-    public Object operateAndIncPC(StackFrame stackFrame);
 }
