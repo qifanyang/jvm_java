@@ -5,7 +5,7 @@ import vm.runtime.StackFrame;
 
 /**
  * iconst_n
- * 将常数n压入操作数栈, 等同于bipush i
+ * 灏嗗父鏁皀鍘嬪叆鎿嶄綔鏁版爤, 绛夊悓浜巄ipush i
  * @author yangqf
  * @version 1.0 2016/4/2
  */

@@ -8,7 +8,7 @@ import vm.runtime.StackFrame;
  * istore_1 = 60 (0x3c)
  * istore_2 = 61 (0x3d)
  * istore_3 = 62 (0x3e)
- * ½«²Ù×÷ÊıÕ»¶¥¶ËµÄÖµµ¯³ö,²¢´æ´¢µ½nÖ¸ÏòµÄ±¾µØ±äÁ¿Êı×é istore index, istore_1
+ * å°†æ“ä½œæ•°æ ˆé¡¶ç«¯çš„å€¼å¼¹å‡º,å¹¶å­˜å‚¨åˆ°næŒ‡å‘çš„æœ¬åœ°å˜é‡æ•°ç»„ istore index, istore_1
  * @author yangqf
  * @version 1.0 2016/4/2
  */

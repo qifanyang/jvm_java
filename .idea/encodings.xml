@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/Opcode.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/OpcodeExecuteUnit.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/OpcodeSupport.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/getstatic.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/iadd.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/iconst_1.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/iconst_2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/iload_1.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/iload_2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/istore_1.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/istore_2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vm/opcode/istore_3.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/ClassFileReader.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/IAttributeObject.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/MethodInfo.java" charset="UTF-8" />
@@ -23,5 +34,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/vm/parser/cp/TagEnum.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/runtime/ThreadStack.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vm/runtime/VirtualMachine.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

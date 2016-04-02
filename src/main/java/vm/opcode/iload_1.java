@@ -3,8 +3,8 @@ package vm.opcode;
 import vm.runtime.StackFrame;
 
 /**
- * iload_0, iload index (indexÎªunsigned byte)
- * ¼ÓÔØÖ¸¶¨index local variable arrayµ½²Ù×÷ÊıÕ»ÉÏ, ±¾µØ±äÁ¿±íÖĞ±ØĞëÊÇÕûĞÎ
+ * iload_0, iload index (indexä¸ºunsigned byte)
+ * åŠ è½½æŒ‡å®šindex local variable arrayåˆ°æ“ä½œæ•°æ ˆä¸Š, æœ¬åœ°å˜é‡è¡¨ä¸­å¿…é¡»æ˜¯æ•´å½¢
  * @author yangqf
  * @version 1.0 2016/4/2
  */
