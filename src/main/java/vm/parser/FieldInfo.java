@@ -7,7 +7,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class FieldInfo {
     U2 access_flags;
     U2 name_index;

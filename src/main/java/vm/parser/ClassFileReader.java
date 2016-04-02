@@ -1,6 +1,7 @@
 package vm.parser;
 
 import java.io.DataInput;
+import java.io.DataInputStream;
 import java.io.IOException;
 
 /**
@@ -9,12 +10,15 @@ import java.io.IOException;
  */
 public class ClassFileReader {
 
-    private DataInput dataInput;
+    private DataInputStream dataInput;
 
     private int mark;//类似ByteBuffer的mark, 这里用于计算读取了多少数据
     private int position;//类似ByteBuffer的position,记录当前位置
 
-    public ClassFileReader(DataInput dataInput){
+    HexFormat hf = new HexFormat();
+    boolean output = false;
+
+    public ClassFileReader(DataInputStream dataInput){
         this.dataInput = dataInput;
         this.mark = 0;
         this.position = 0;
@@ -23,12 +27,18 @@ public class ClassFileReader {
     public U1 readU1() throws IOException {
         int i = dataInput.readUnsignedByte();
         position++;
+        if(output){
+            hf.formatU1(i);
+        }
         return U1.of(i);
     }
 
     public U2 readU2() throws IOException {
         int i = dataInput.readUnsignedShort();
         position+=2;
+        if (output) {
+            hf.formatU2(U2.of(i));
+        }
         return U2.of(i);
     }
 
@@ -40,6 +50,9 @@ public class ClassFileReader {
     public U4 readU4() throws IOException {
         int i = dataInput.readInt();
         position+=4;
+        if (output) {
+            hf.formatU4(U4.of(i));
+        }
         return U4.of(i);
     }
 
@@ -59,5 +72,13 @@ public class ClassFileReader {
 
     public int position(){
         return this.position;
+    }
+
+    public void close(){
+        try {
+            dataInput.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

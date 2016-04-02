@@ -12,7 +12,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ConstantInterfaceMethodRefInfo implements IConstantPoolObject {
     U1 tag = U1.of(11);
     U2 class_index;

@@ -10,7 +10,8 @@ import java.io.IOException;
  * @version 1.0 2016/3/27
  */
 
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class CodeAttribute implements IAttributeObject{
     U2 attribute_name_index;
     U4 attribute_length;

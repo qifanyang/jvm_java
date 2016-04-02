@@ -1,5 +1,7 @@
 package vm.parser;
 
+import vm.parser.cp.ConstantPoolInfo;
+
 import java.io.IOException;
 
 /**
@@ -7,7 +9,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class MethodInfo {
     U2 access_flags;
     U2 name_index;
@@ -31,4 +34,11 @@ public class MethodInfo {
         }
     }
 
+    @Override
+    public String toString(){
+
+        ConstantPoolInfo constantPoolInfo = cf.getConstant_pool_info()[name_index.value];
+
+        return constantPoolInfo.getConstantPoolObject().toString();
+    }
 }

@@ -1,39 +1,58 @@
 package vm.runtime;
 
+import vm.opcode.OpcodeExecuteUnit;
+import vm.parser.MethodInfo;
+import vm.parser.cp.ConstantPoolInfo;
+
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * Ïß³ÌÕ»,´´½¨Ïß³ÌÊ±´´½¨,Ïß³Ì½áÊøÊ±Ïú»Ù,´æ´¢·½·¨µ÷ÓÃÕ»Ö¡
+ * çº¿ç¨‹æ ˆ,åˆ›å»ºçº¿ç¨‹æ—¶åˆ›å»º,çº¿ç¨‹ç»“æŸæ—¶é”€æ¯,å­˜å‚¨æ–¹æ³•è°ƒç”¨æ ˆå¸§
  * @author yangqf
  * @version 1.0 2016/4/1
  */
 @lombok.Data
-public class ThreadStack {
+@lombok.EqualsAndHashCode(callSuper = true)
+public class ThreadStack extends Thread{
     private int pc;
     private final static int MAX_STACK_FRAME_DEEP = 1000;
     private LinkedList<StackFrame> frames = new LinkedList<>();
 
+    private StackFrame currentFrame;
     /**
-     * ·½·¨µ÷ÓÃ,´´½¨Õ»Ö¡²¢Ñ¹Õ»
+     * æ–¹æ³•è°ƒç”¨,åˆ›å»ºæ ˆå¸§å¹¶å‹æ ˆ
      */
-    public void createStackFrame(){
+    public void createStackFrame(MethodInfo methodInfo, ConstantPoolInfo[] constantPool){
         if(frames.size() > MAX_STACK_FRAME_DEEP){
-            throw new StackOverflowError("·½·¨µ÷ÓÃÇ¶Ì×Ì«¶à");
+            throw new StackOverflowError("æ–¹æ³•è°ƒç”¨åµŒå¥—å¤ªå¤š");
         }
 
         StackFrame frame = new StackFrame();
-        //TODO ³õÊ¼»¯
+        frame.init(methodInfo, constantPool);
 
-        frames.addLast(frame);//Ñ¹Õ»
+        frames.addLast(frame);//å‹æ ˆ
+        currentFrame = frame;
+
+        System.out.println("æ–¹æ³•è°ƒç”¨");
     }
 
     /**
-     * µ÷ÓÃ·½·¨½áÊø,´ÓÏß³ÌÕ»ÖĞÒÆ³ıÕ»Ö¡
+     * è°ƒç”¨æ–¹æ³•ç»“æŸ,ä»çº¿ç¨‹æ ˆä¸­ç§»é™¤æ ˆå¸§
      */
     public void popStackFrame(){
-        frames.removeLast();
+        currentFrame = frames.removeLast();
     }
 
 
+    @Override
+    public void run(){
+        while(true){
+                try{
+                    Thread.sleep(1000L);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            OpcodeExecuteUnit.execute(currentFrame);
+        }
+    }
 }

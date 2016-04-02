@@ -9,7 +9,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ConstantLongInfo implements IConstantPoolObject {
     U1 tag = U1.of(5);
     U1 high_bytes[] = new U1[4];

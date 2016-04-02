@@ -9,6 +9,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/28
  */
+@lombok.Getter
+@lombok.Setter
 public class SourceFileAttribute implements IAttributeObject {
     U2 attribute_name_index;
     U4 attribute_length;

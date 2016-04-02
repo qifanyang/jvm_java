@@ -7,7 +7,8 @@ import vm.parser.cp.ConstantPoolInfo;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ClassFile {
     private U4 magic;
     private U2 minor_version;

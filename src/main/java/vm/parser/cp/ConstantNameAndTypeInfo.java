@@ -12,7 +12,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ConstantNameAndTypeInfo implements IConstantPoolObject {
     U1 tag = U1.of(12);
     U2 name_index;//指向常量池的一个索引,在常量池中的数据类型为utf8_info

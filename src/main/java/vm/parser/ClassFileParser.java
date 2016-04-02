@@ -13,13 +13,8 @@ import java.io.*;
 public class ClassFileParser {
     private ClassFile cf;
     private ClassFileReader reader;
-    private int offset;
-    private boolean isDebug;
-    private HexFormat hf;
-
     public ClassFileParser(DataInputStream dataInput) {
         cf = new ClassFile();
-        hf = new HexFormat();
         reader = new ClassFileReader(dataInput);
     }
 
@@ -39,34 +34,18 @@ public class ClassFileParser {
 
     public void magic() throws IOException {
         cf.setMagic(reader.readU4());
-        offset+=4;
-        if(isDebug){
-            hf.formatU4(cf.getMagic());
-        }
     }
 
     public void minorVersion() throws IOException {
         cf.setMinor_version(reader.readU2());
-        offset+=2;
-        if(isDebug){
-            hf.formatU2(cf.getMinor_version());
-        }
     }
 
     public void majorVersion() throws IOException {
         cf.setMajor_version(reader.readU2());
-        offset+=2;
-        if(isDebug){
-            hf.formatU2(cf.getMajor_version());
-        }
     }
 
     public void constantPoolCount() throws IOException {
         cf.setConstant_pool_count(reader.readU2());
-        offset+=2;
-        if(isDebug){
-            hf.formatU2(cf.getConstant_pool_count());
-        }
     }
 
     /**
@@ -233,6 +212,14 @@ public class ClassFileParser {
         }
     }
 
+    public static ClassFile load(String path) throws Exception{
+        File file = new File(System.getProperty("user.dir") + "\\target\\classes\\"+path+".class").getCanonicalFile();
+        FileInputStream fis = new FileInputStream(file);
+        DataInputStream dataInput = new DataInputStream(fis);
+        ClassFileParser parser = new ClassFileParser(dataInput);
+        parser.parse();
+        return  parser.cf;
+    }
     public static void main(String[] args) throws Exception {
 //        InputStream in = ClassFileParser.class.getClassLoader().getResourceAsStream("");
         File file = new File(System.getProperty("user.dir") + "\\target\\classes\\A.class").getCanonicalFile();
@@ -240,11 +227,15 @@ public class ClassFileParser {
         FileInputStream fis = new FileInputStream(file);
         DataInputStream dataInput = new DataInputStream(fis);
         ClassFileParser parser = new ClassFileParser(dataInput);
-        parser.isDebug = true;
         parser.parse();
         System.out.println();
-        System.out.println(parser.reader.position());
+//        System.out.println(parser.reader.position());
         System.out.println("字段数量 = "+ parser.cf.getFields_count());
-        System.out.println("方法数量 = "+ parser.cf.getMethods_count());
+        System.out.println("方法数量 = " + parser.cf.getMethods_count());
+        MethodInfo[] methods = parser.cf.getMethods();
+        for(MethodInfo methodInfo : methods){
+            ConstantUtf8Info info = (ConstantUtf8Info)parser.cf.getConstant_pool_info()[methodInfo.name_index.value].getConstantPoolObject();
+            System.out.println(info.string());
+        }
     }
 }

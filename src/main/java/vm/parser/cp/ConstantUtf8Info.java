@@ -11,7 +11,8 @@ import java.util.Arrays;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ConstantUtf8Info implements IConstantPoolObject {
     U1 tag = U1.of(1);
     U2 length;//bytes长度
@@ -42,8 +43,6 @@ public class ConstantUtf8Info implements IConstantPoolObject {
 
     @Override
     public String toString() {
-        return "ConstantUtf8Info{" +
-                "bytes=" + Arrays.toString(bytes) +
-                '}';
+        return string();
     }
 }

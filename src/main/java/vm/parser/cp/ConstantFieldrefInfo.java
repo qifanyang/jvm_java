@@ -12,7 +12,8 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-@lombok.Data
+@lombok.Getter
+@lombok.Setter
 public class ConstantFieldrefInfo implements IConstantPoolObject {
     U1 tag = U1.of(9);
     U2 class_index;//指向常量池的索引,值类型ClassInfo

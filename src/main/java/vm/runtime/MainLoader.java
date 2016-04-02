@@ -1,5 +1,7 @@
 package vm.runtime;
 
+import org.junit.Test;
+
 /**
  * 完成类似java -jar xxx.jar, 创建一个虚拟机,并加载解析字节码
  * @author yangqf
@@ -7,8 +9,15 @@ package vm.runtime;
  */
 public class MainLoader {
 
-    //创建虚拟机
+    public static void main(String[] args) throws Exception{
+        //创建虚拟机
+        VirtualMachine machine = new VirtualMachine();
 
-    //加载启动程序
+        machine.run("A");
+
+        //加载启动程序
+    }
+
+
 
 }
