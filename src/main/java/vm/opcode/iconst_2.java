@@ -7,7 +7,7 @@ import vm.runtime.StackFrame;
  * @author yangqf
  * @version 1.0 2016/4/2
  */
-public class iconst_2 implements Opcode{
+public class iconst_2 extends OpcodeSupport{
     @Override
     public int opcode(){
         return Opcodes.ICONST_2;
@@ -15,7 +15,7 @@ public class iconst_2 implements Opcode{
 
     @Override
     public Object operate(StackFrame frame){
-        frame.getOperands()[0]=2;
+        frame.getOperands().push(2);
         return null;
     }
 }

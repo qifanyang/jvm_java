@@ -6,15 +6,15 @@ import vm.runtime.StackFrame;
  * @author yangqf
  * @version 1.0 2016/4/2
  */
-public class istore_2 extends OpcodeSupport{
+public class iload_2 extends OpcodeSupport{
     @Override
     public int opcode(){
-        return 61;
+        return 28;
     }
 
     @Override
     public Object operate(StackFrame frame){
-        frame.getLocals()[2]=frame.getOperands().pop();
+        frame.getOperands().push(frame.getLocals()[2]);
         return null;
     }
 }

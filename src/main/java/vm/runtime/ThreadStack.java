@@ -28,7 +28,7 @@ public class ThreadStack extends Thread{
         }
 
         StackFrame frame = new StackFrame();
-        frame.init(methodInfo, constantPool);
+        frame.init(methodInfo, constantPool, this);
 
         frames.addLast(frame);//压栈
         currentFrame = frame;

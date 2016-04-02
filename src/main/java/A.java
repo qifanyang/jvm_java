@@ -24,6 +24,6 @@ public class A {
         int x = 1;
         int y = 2;
         int z = x + y;
-        System.out.println("x + y = "+z);
+        System.out.println(z);
     }
 }
