@@ -1,6 +1,9 @@
 ### Java template
 *.class
 
+# idea config
+.idea/*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
