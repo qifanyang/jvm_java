@@ -57,10 +57,13 @@ public class OpcodeExecuteUnit{
             }else{
                 opcode.operate(frame);
             }
-            System.out.println("opcode = " + opcode);
-            frame.show();
+            //对于有操作数的opcode,在operate方法中修改pc值
             pc = frame.getThreadStack().getPc()+1;
             frame.getThreadStack().setPc(pc);
+
+            //调试
+            System.out.println("opcode = " + opcode);
+            frame.show();
         }
 
     }
