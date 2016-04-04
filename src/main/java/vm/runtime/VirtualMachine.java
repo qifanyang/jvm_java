@@ -14,7 +14,8 @@ public class VirtualMachine {
 
     public void run(String s) throws Exception {
         //加载对应字节码,寻找main方法
-        ClassFile classFile = ClassFileParser.load(s);
+        ClassRT classRT = loadClass(s);
+        ClassFile classFile = classRT.getClassFile();
 
         MethodInfo[] methods = classFile.getMethods();
         MethodInfo mainMethodInfo = null;
@@ -40,6 +41,22 @@ public class VirtualMachine {
 
         mainThreadStack.start();
         //控制权校给主线程栈 ...
+    }
+
+    /**
+     * 加载指定的类,例如:java.lang.System  java/lang/Sytem
+     * @param name
+     * @return
+     * @throws Exception
+     */
+    public ClassRT loadClass(String name) throws Exception{
+        String name1 = name.replace(".", "/");
+        ClassFile classFile = ClassFileParser.load(name1);
+        ClassRT classRT = new ClassRT();
+        classRT.setClassFile(classFile);
+        classRT.init();
+        MethodArea.register(name1, classRT);
+        return classRT;
     }
 
     //字节码执行单元

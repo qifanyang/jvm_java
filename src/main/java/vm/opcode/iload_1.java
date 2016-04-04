@@ -16,7 +16,7 @@ public class iload_1 extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
-        frame.getOperands().push(frame.getLocals()[1]);
+        frame.getOperands().push((Integer)frame.getLocals()[1]);
         return null;
     }
 }

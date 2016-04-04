@@ -10,6 +10,10 @@ public class A {
     public A(){
         int y = 1;
     }
+
+    public A(int x){
+        this.x = x;
+    }
     private void test(){
         this.x = 55555555;
         int xx = s(6);

@@ -1,8 +1,5 @@
 package vm.opcode;
 
-import vm.opcode.Opcode;
-import vm.opcode.iconst_1;
-import vm.opcode.iconst_2;
 import vm.parser.U1;
 import vm.runtime.StackFrame;
 

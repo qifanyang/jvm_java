@@ -9,7 +9,7 @@ import vm.parser.cp.ConstantPoolInfo;
 import java.util.Iterator;
 
 /**
- * Õ»Ö¡,·½·¨µ÷ÓÃÊ±´´½¨, ÓÃÓÚ´æ´¢¾Ö²¿±äÁ¿, ²Ù×÷ÊýÕ»,...
+ * Õ»Ö¡,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ú´æ´¢ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»,...
  * @author yangqf
  * @version 1.0 2016/4/1
  */
@@ -20,7 +20,7 @@ public class StackFrame {
 
     private U1 code[];
 
-    private ConstantPoolInfo[] constantPool;//ÓÃÓÚ½âÎö·ûºÅÒýÓÃ
+    private ConstantPoolInfo[] constantPool;//ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private MethodInfo methodInfo;
     private ThreadStack threadStack;
 
