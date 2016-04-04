@@ -9,20 +9,21 @@ import vm.parser.cp.ConstantPoolInfo;
 import java.util.Iterator;
 
 /**
- * ջ֡,��������ʱ����, ���ڴ洢�ֲ�����, ������ջ,...
  * @author yangqf
  * @version 1.0 2016/4/1
  */
 @lombok.Getter
+@lombok.Setter
 public class StackFrame {
     private Object locals[];
     private OperandStack operands;
 
     private U1 code[];
 
-    private ConstantPoolInfo[] constantPool;//���ڽ�����������
+    private ConstantPoolInfo[] constantPool;
     private MethodInfo methodInfo;
     private ThreadStack threadStack;
+    private int pc;
 
     public void init(MethodInfo methodInfo, ConstantPoolInfo[] constantPool, ThreadStack threadStack){
         this.constantPool = constantPool;

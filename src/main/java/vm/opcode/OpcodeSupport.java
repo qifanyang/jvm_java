@@ -1,6 +1,9 @@
 package vm.opcode;
 
+import vm.parser.IConstantPoolObject;
 import vm.parser.U1;
+import vm.parser.U2;
+import vm.parser.cp.ConstantPoolInfo;
 import vm.runtime.StackFrame;
 import vm.runtime.ThreadStack;
 
@@ -14,27 +17,28 @@ public abstract class OpcodeSupport implements Opcode{
     public void register(){
     }
 
-    @Override
+//    @Override
     public int operandNum(){
         return 0;
     }
 
     /**
-     * 取出当前opcode的操作数,操作数个数根据方法{@link OpcodeSupport#operandNum()} 返回值决定
+     * 取出当前opcode的操作数
      * @param frame
+     * @param operandNum 操作数字节个数
      * @return
      */
-    protected int fetchOperand(StackFrame frame){
+    protected int fetchOperand(StackFrame frame, int operandNum){
         int pc = frame.getThreadStack().getPc();//goto pc实现跳转
-        int operandNum = operandNum();
+//        int operandNum = operandNum();
         int operand = 0;
         if(1 == operandNum){
             U1 b1 = frame.getCode()[pc];
             operand = b1.value;
             frame.getThreadStack().setPc(pc+1);
         }else if(2 == operandNum){
-            U1 b1 = frame.getCode()[pc];
-            U1 b2 = frame.getCode()[pc+1];
+            U1 b1 = frame.getCode()[pc+1];
+            U1 b2 = frame.getCode()[pc+2];
             operand = (((byte)b1.value) << 8)| ((byte)b2.value);
             frame.getThreadStack().setPc(pc+2);
         }else {
@@ -42,6 +46,15 @@ public abstract class OpcodeSupport implements Opcode{
         }
 
         return operand;
+    }
+
+    protected <T> T indexConstantPoolObject(StackFrame frame, int index, Class<T> t){
+        IConstantPoolObject constantPoolObject = frame.getConstantPool()[index].getConstantPoolObject();
+        return (T) constantPoolObject;
+    }
+
+    protected <T> T indexConstantPoolObject(StackFrame frame, U2 index, Class<T> t){
+        return indexConstantPoolObject(frame, index.value, t);
     }
 
 }

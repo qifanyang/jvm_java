@@ -1,12 +1,10 @@
 package vm.opcode;
 
-import com.sun.org.apache.bcel.internal.classfile.ConstantFloat;
 import vm.parser.IConstantPoolObject;
-import vm.parser.U1;
 import vm.parser.U2;
 import vm.parser.cp.*;
-import vm.runtime.ClassRT;
-import vm.runtime.MethodArea;
+import vm.runtime.RTClass;
+import vm.runtime.RTMethodArea;
 import vm.runtime.StackFrame;
 
 /**
@@ -39,24 +37,25 @@ public class getstatic extends OpcodeSupport{
 //        U1 b1 = frame.getCode()[pc];
 //        U1 b2 = frame.getCode()[pc+1];
 //        int index = (((byte)b1.value) << 8)| ((byte)b2.value);
-        int index = fetchOperand(frame);
-        //指向一个字段的符号引用
-        ConstantPoolInfo constantPoolInfo = frame.getConstantPool()[index];
+        int index = fetchOperand(frame, 2);
 
-        ConstantFieldrefInfo fieldRefInfo = (ConstantFieldrefInfo) constantPoolInfo.getConstantPoolObject();
+        //指向一个静态字段的符号引用
+        ConstantFieldrefInfo fieldRefInfo = indexConstantPoolObject(frame, index, ConstantFieldrefInfo.class);
 
         //访问字段,首先需要解析类,将类的符号引用解析为直接引用
-        U2 class_index = fieldRefInfo.getClass_index();
-        ConstantClassInfo constantClassInfo = (ConstantClassInfo) frame.getConstantPool()[class_index.value].getConstantPoolObject();
-        IConstantPoolObject classNameObject = frame.getConstantPool()[constantClassInfo.getName_index().value].getConstantPoolObject();
-        String className = classNameObject.toString();
-        ClassRT classRT = MethodArea.findClass(className);//得到类运行时数据
+        ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, fieldRefInfo.getClass_index(), ConstantClassInfo.class);
+        ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
 
-        U2 name_and_type_index = fieldRefInfo.getName_and_type_index();
-        IConstantPoolObject nameAndTypeObject = frame.getConstantPool()[name_and_type_index.value].getConstantPoolObject();
-        ConstantNameAndTypeInfo nameAndTypeInfo = (ConstantNameAndTypeInfo) nameAndTypeObject;
-        IConstantPoolObject fieldNameObject = frame.getConstantPool()[nameAndTypeInfo.getName_index().value].getConstantPoolObject();
-        Object fieldValue = classRT.getStaticFields().get(fieldNameObject.toString());//得到静态字段值
+        String className = classNameUtf8Info.string();
+        RTClass rtClass = RTMethodArea.findClass(className);//得到类运行时数据
+        if(null == rtClass){//静态字段所属于的类没有加载,这里加载
+            rtClass = RTMethodArea.loadClass(className);//加载System
+        }
+
+        ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, fieldRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
+        ConstantUtf8Info fieldNameUtf8Info = indexConstantPoolObject(frame, nameAndTypeInfo.getName_index(), ConstantUtf8Info.class);
+
+        Object fieldValue = rtClass.getStaticFields().get(fieldNameUtf8Info.string());//得到静态字段值
 
         frame.getOperands().push(fieldValue);
 

@@ -14,7 +14,7 @@ public class VirtualMachine {
 
     public void run(String s) throws Exception {
         //加载对应字节码,寻找main方法
-        ClassRT classRT = loadClass(s);
+        RTClass classRT = loadClass(s);
         ClassFile classFile = classRT.getClassFile();
 
         MethodInfo[] methods = classFile.getMethods();
@@ -49,13 +49,13 @@ public class VirtualMachine {
      * @return
      * @throws Exception
      */
-    public ClassRT loadClass(String name) throws Exception{
+    public RTClass loadClass(String name) throws Exception{
         String name1 = name.replace(".", "/");
         ClassFile classFile = ClassFileParser.load(name1);
-        ClassRT classRT = new ClassRT();
+        RTClass classRT = new RTClass();
         classRT.setClassFile(classFile);
         classRT.init();
-        MethodArea.register(name1, classRT);
+        RTMethodArea.register(name1, classRT);
         return classRT;
     }
 

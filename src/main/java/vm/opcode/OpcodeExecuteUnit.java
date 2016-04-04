@@ -25,6 +25,11 @@ public class OpcodeExecuteUnit{
         register(iload_1.class);
         register(iload_2.class);
         register(iadd.class);
+        register(getstatic.class);
+        register(putfield.class);
+        register(newnew.class);
+        register(invokevirtual.class);
+        register(returnreturn.class);
     }
 
     public static void register(Class<? extends Opcode> opcode){

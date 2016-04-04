@@ -28,6 +28,7 @@ public class A {
         int x = 1;
         int y = 2;
         int z = x + y;
-        System.out.println(z);
+        Test test = new Test();
+        test.t();
     }
 }

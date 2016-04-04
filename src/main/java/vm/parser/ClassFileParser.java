@@ -212,13 +212,18 @@ public class ClassFileParser {
         }
     }
 
-    public static ClassFile load(String path) throws Exception{
-        File file = new File(System.getProperty("user.dir") + "\\target\\classes\\"+path+".class").getCanonicalFile();
-        FileInputStream fis = new FileInputStream(file);
-        DataInputStream dataInput = new DataInputStream(fis);
-        ClassFileParser parser = new ClassFileParser(dataInput);
-        parser.parse();
-        return  parser.cf;
+    public static ClassFile load(String path){
+        try{
+            File file = new File(System.getProperty("user.dir") + "\\target\\classes\\" + path + ".class").getCanonicalFile();
+            FileInputStream fis = new FileInputStream(file);
+            DataInputStream dataInput = new DataInputStream(fis);
+            ClassFileParser parser = new ClassFileParser(dataInput);
+            parser.parse();
+            return parser.cf;
+        }catch(Exception e){
+            new IllegalStateException("加载类失败, url =" + path);
+        }
+        throw  new IllegalStateException("加载类失败, url =" + path);
     }
     public static void main(String[] args) throws Exception {
 //        InputStream in = ClassFileParser.class.getClassLoader().getResourceAsStream("");

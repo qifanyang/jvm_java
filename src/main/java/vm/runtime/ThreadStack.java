@@ -11,8 +11,8 @@ import java.util.LinkedList;
  * @author yangqf
  * @version 1.0 2016/4/1
  */
-@lombok.Data
-@lombok.EqualsAndHashCode(callSuper = true)
+@lombok.Getter
+@lombok.Setter
 public class ThreadStack extends Thread{
     private int pc;//进入方法栈时重置pc为0
     private final static int MAX_STACK_FRAME_DEEP = 1000;
@@ -31,6 +31,9 @@ public class ThreadStack extends Thread{
         frame.init(methodInfo, constantPool, this);
 
         frames.addLast(frame);//压栈
+        if(null != currentFrame){
+            currentFrame.setPc(pc);
+        }
         currentFrame = frame;
 
         System.out.println("方法调用");
@@ -41,6 +44,7 @@ public class ThreadStack extends Thread{
      */
     public void popStackFrame(){
         currentFrame = frames.removeLast();
+        pc = currentFrame.getPc();
     }
 
 

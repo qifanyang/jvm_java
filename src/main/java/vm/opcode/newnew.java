@@ -1,6 +1,8 @@
 package vm.opcode;
 
-import vm.runtime.StackFrame;
+import vm.parser.cp.ConstantClassInfo;
+import vm.parser.cp.ConstantUtf8Info;
+import vm.runtime.*;
 
 /**
  * new没法作为类名,使用newnew代替new<br>
@@ -46,6 +48,18 @@ public class newnew extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
+
+        ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, fetchOperand(frame, 2), ConstantClassInfo.class);
+
+        ConstantUtf8Info classNameInfo = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
+        RTClass rtClass = RTMethodArea.loadClass(classNameInfo.string());
+
+        RTObject rtObject = new RTObject();
+        rtObject.setRtClass(rtClass);
+        //初始化实例变量为默认值
+        //执行初始化方法<init>
+        RTHeap.register(rtObject);
+
         return null;
     }
 }
