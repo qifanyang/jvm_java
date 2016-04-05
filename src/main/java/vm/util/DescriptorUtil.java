@@ -16,7 +16,7 @@ public class DescriptorUtil{
         for(int i = 1; i < chars.length; i++){
             char c = chars[i];
             if(c == 'I'){
-                list.add(Integer.class);
+                list.add(int.class);
             }else if(c == 'L'){
                 list.add(String.class);
                 i+= 16;

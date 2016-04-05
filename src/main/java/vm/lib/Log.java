@@ -13,7 +13,7 @@ public class Log{
     public  native void println(String s);
     public  native void print(String s);
 
-    public native void println(Integer i);
-    public native void print(Integer i);
-    public native void print(Integer i, String s);
+    public native void println(int i);
+    public native void print(int i);
+    public native void print(int i, String s);
 }

@@ -22,8 +22,10 @@ public class OpcodeExecuteUnit{
         register(istore_1.class);
         register(istore_2.class);
         register(istore_3.class);
+        register(iload_0.class);
         register(iload_1.class);
         register(iload_2.class);
+        register(iload_3.class);
         register(iadd.class);
         register(getstatic.class);
         register(putfield.class);

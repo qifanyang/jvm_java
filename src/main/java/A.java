@@ -31,7 +31,11 @@ public class A {
         int y = 2;
         int z = x + y;
         Log log = new Log();
-        log.println("xxxxxxxxx");
+        log.print(x);
+        log.print(" + ");
+        log.print(y);
+        log.print(" = ");
+        log.println(z);
 
     }
 }

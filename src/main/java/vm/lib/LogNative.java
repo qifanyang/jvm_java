@@ -14,15 +14,15 @@ public class LogNative{
         java.lang.System.out.print(s);
     }
 
-    public static void println(Integer i){
+    public static void println(int i){
         System.out.println(i);
     }
 
-    public static void print(Integer i){
+    public static void print(int i){
         System.out.print(i);
     }
 
-    public static void print(Integer i, String s){
+    public static void print(int i, String s){
         System.out.print(i);
     }
 }

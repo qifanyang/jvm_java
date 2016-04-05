@@ -60,6 +60,7 @@ public class ThreadStack extends Thread{
 //                }
 //            }
             if(frames.isEmpty()){
+                System.out.println();
                 System.out.println("虚拟机执行字节码完毕,正常退出...");
                 break;
             }
