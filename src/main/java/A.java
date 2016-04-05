@@ -9,13 +9,6 @@ public class A{
     private int x;
     private A a = new A();
 
-    public A(){
-        int y = 1;
-    }
-
-    public A(int x){
-        this.x = x;
-    }
 
     public int add(int x, int y){
         return x + y;

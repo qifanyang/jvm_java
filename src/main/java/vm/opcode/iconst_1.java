@@ -12,7 +12,7 @@ import vm.runtime.StackFrame;
 public class iconst_1 extends OpcodeSupport{
     @Override
     public int opcode(){
-        return Opcodes.ICONST_1;
+        return 4;
     }
 
     @Override

@@ -17,9 +17,13 @@ public class OpcodeExecuteUnit{
 
     //手动注册,改为扫描包
     static {
+        register(iconst_m1.class);
+        register(iconst_0.class);
         register(iconst_1.class);
         register(iconst_2.class);
         register(iconst_3.class);
+        register(iconst_4.class);
+        register(iconst_5.class);
         register(istore.class);
         register(istore_0.class);
         register(istore_1.class);
@@ -31,6 +35,7 @@ public class OpcodeExecuteUnit{
         register(iload_2.class);
         register(iload_3.class);
         register(iadd.class);
+        register(bipush.class);
         register(getstatic.class);
         register(putfield.class);
         register(newnew.class);
@@ -46,7 +51,7 @@ public class OpcodeExecuteUnit{
         register(dup.class);
         register(ldc.class);
 
-//        System.out.println("完成字节码指令数量 :" + opcodeMap.size());
+        System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
 
     public static void register(Class<? extends Opcode> opcode){
