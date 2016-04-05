@@ -66,7 +66,7 @@ public class OpcodeExecuteUnit{
 
         U1[] code = frame.getCode();
         int pc = frame.getThreadStack().getPc();
-        //TODO 这里要完成执行环境切换
+        //这里要完成执行环境切换
         while(pc < code.length){
             U1 u1 = code[pc];
             Opcode opcode = opcodeMap.get(u1.value);
