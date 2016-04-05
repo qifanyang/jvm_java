@@ -60,6 +60,7 @@ public class newnew extends OpcodeSupport{
         //执行初始化方法<init>
         RTHeap.register(rtObject);
 
+        frame.getOperands().push(rtObject);
         return null;
     }
 }

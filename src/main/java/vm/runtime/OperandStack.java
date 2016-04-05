@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * ²Ù×÷ÊýÕ»,
  * @author yangqf
  * @version 1.0 2016/4/2
  */
@@ -16,6 +15,10 @@ public class OperandStack{
     public OperandStack(int size){
         stack = new Stack<>();
         maxSize = size;
+    }
+
+    public boolean isEmpty(){
+        return stack.isEmpty();
     }
 
     public Iterator<Object> iterator(){
@@ -36,8 +39,7 @@ public class OperandStack{
 
     public void dup(){
         Object top = stack.peek();
-        //¿½±´
-
+        push(top);
     }
 
 }

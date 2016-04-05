@@ -33,7 +33,7 @@ public abstract class OpcodeSupport implements Opcode{
 //        int operandNum = operandNum();
         int operand = 0;
         if(1 == operandNum){
-            U1 b1 = frame.getCode()[pc];
+            U1 b1 = frame.getCode()[pc+1];
             operand = b1.value;
             frame.getThreadStack().setPc(pc+1);
         }else if(2 == operandNum){

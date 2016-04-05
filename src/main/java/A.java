@@ -1,3 +1,5 @@
+import vm.lib.Log;
+
 /**
  *
  * @author yangqf
@@ -28,7 +30,8 @@ public class A {
         int x = 1;
         int y = 2;
         int z = x + y;
-        Test test = new Test();
-        test.t();
+        Log log = new Log();
+        log.println("xxxxxxxxx");
+
     }
 }

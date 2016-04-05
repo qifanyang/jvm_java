@@ -4,18 +4,19 @@ import vm.runtime.StackFrame;
 
 /**
  * @author yangqf
- * @version 1.0 2016/4/4
+ * @version 1.0 2016/4/5
  */
-public class returnreturn extends OpcodeSupport{
+public class invokespecial extends OpcodeSupport{
     @Override
     public int opcode(){
-        return 177;
+        return 183;
     }
 
     @Override
     public Object operate(StackFrame frame){
-//        frame.getThreadStack().popStackFrame();
-        //没有处理返回值
+        int operand = fetchOperand(frame, 2);
+        //init
+        frame.getOperands().pop();
         return null;
     }
 }

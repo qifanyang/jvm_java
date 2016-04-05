@@ -54,18 +54,16 @@ public class RTClass{
         }
     }
 
-    public MethodInfo methodInfoByMethodref(ConstantMethodRefInfo methodRefInfo){
-        ConstantNameAndTypeInfo nameAndTypeInfo = (ConstantNameAndTypeInfo) classFile.getConstant_pool_info()[methodRefInfo.getName_and_type_index().value].getConstantPoolObject();
-        ConstantUtf8Info methodNameUtf8Info = (ConstantUtf8Info) classFile.getConstant_pool_info()[nameAndTypeInfo.getName_index().value].getConstantPoolObject();
-        String methodName = methodNameUtf8Info.string();
+    public MethodInfo getMethodInfoByMethodref(String methodName, String methodDescriptor){
+//        ConstantNameAndTypeInfo nameAndTypeInfo = (ConstantNameAndTypeInfo) classFile.getConstant_pool_info()[methodRefInfo.getName_and_type_index().value].getConstantPoolObject();
+//        ConstantUtf8Info methodNameUtf8Info = (ConstantUtf8Info) classFile.getConstant_pool_info()[nameAndTypeInfo.getName_index().value].getConstantPoolObject();
+//        String methodName = methodNameUtf8Info.string();
         MethodInfo[] methods = classFile.getMethods();
         MethodInfo findMethodInfo = null;
         for(MethodInfo methodInfo : methods){
-            U2 name_index = methodInfo.getName_index();
-            ConstantPoolInfo constantPoolInfo = classFile.getConstant_pool_info()[name_index.value];
-            IConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
-            ConstantUtf8Info utf8Info = (ConstantUtf8Info) constantPoolObject;
-            if(utf8Info.string().equals(methodName)){
+            ConstantUtf8Info nameInfo = (ConstantUtf8Info) classFile.getConstant_pool_info()[ methodInfo.getName_index().value].getConstantPoolObject();
+            ConstantUtf8Info descriptorInfo = (ConstantUtf8Info) classFile.getConstant_pool_info()[methodInfo.getDescriptor_index().value].getConstantPoolObject();
+            if(nameInfo.string().equals(methodName) && descriptorInfo.string().equals(methodDescriptor)){
                 findMethodInfo = methodInfo;
                 break;
             }

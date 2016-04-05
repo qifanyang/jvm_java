@@ -36,7 +36,6 @@ public class ThreadStack extends Thread{
         }
         currentFrame = frame;
 
-        System.out.println("方法调用");
     }
 
     /**
@@ -44,18 +43,27 @@ public class ThreadStack extends Thread{
      */
     public void popStackFrame(){
         currentFrame = frames.removeLast();
-        pc = currentFrame.getPc();
+//        pc = currentFrame.getPc();
     }
 
 
     @Override
     public void run(){
         while(true){
-                try{
-                    Thread.sleep(1000L);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
+//            synchronized(this){
+//                if(frames.isEmpty()){
+//                    try{
+//                        wait();//当前线程挂起,不持有monitor
+//                    }catch(InterruptedException e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+            if(frames.isEmpty()){
+                System.out.println("虚拟机执行字节码完毕,正常退出...");
+                break;
+            }
+
             OpcodeExecuteUnit.execute(currentFrame);
 
             //方法调用完成,当前栈帧弹出,上一个栈帧成为新的当前栈帧

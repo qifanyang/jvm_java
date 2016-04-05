@@ -29,7 +29,13 @@ public class OpcodeExecuteUnit{
         register(putfield.class);
         register(newnew.class);
         register(invokevirtual.class);
+        register(invokespecial.class);
         register(returnreturn.class);
+        register(aload.class);
+        register(astore.class);
+        register(dup.class);
+        register(ldc.class);
+
     }
 
     public static void register(Class<? extends Opcode> opcode){
@@ -45,11 +51,11 @@ public class OpcodeExecuteUnit{
     }
 
     public static void execute(StackFrame frame){
-        System.out.println("执行方法:"+frame.getMethodInfo());
+//        System.out.println("执行方法:"+frame.getMethodInfo());
 
         U1[] code = frame.getCode();
         int pc = frame.getThreadStack().getPc();
-        while(pc <= code.length){
+        while(pc < code.length){
             U1 u1 = code[pc];
             Opcode opcode = opcodeMap.get(u1.value);
             if(opcode == null){
@@ -62,8 +68,8 @@ public class OpcodeExecuteUnit{
             frame.getThreadStack().setPc(pc);
 
             //调试
-            System.out.println("opcode = " + opcode);
-            frame.show();
+//            System.out.println("opcode = " + opcode);
+//            frame.show();
         }
 
     }
