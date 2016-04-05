@@ -63,9 +63,9 @@ public class invokevirtual extends OpcodeSupport{
                 //调用方法之前已经把objectref和parameter压栈, 这里需要把所有参数都取出来
                 LinkedList<Object> paraList = new LinkedList<>();
                 while(!frame.getOperands().isEmpty()){
-                    paraList.add(frame.getOperands().pop());
+                    paraList.addFirst(frame.getOperands().pop());
                 }
-                paraList.removeLast();//objectref
+                paraList.removeFirst();//remove objectref
                 Object[] paraObjects = paraList.toArray(new Object[paraList.size()]);
                 targetMethod.invoke(targetNativeCalss, paraObjects);
             }catch(ClassNotFoundException e){

@@ -37,5 +37,7 @@ public class A {
         log.print(" = ");
         log.println(z);
 
+        log.print(3, "dddddd");
+
     }
 }

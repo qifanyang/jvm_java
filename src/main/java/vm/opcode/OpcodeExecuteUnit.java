@@ -19,6 +19,7 @@ public class OpcodeExecuteUnit{
     static {
         register(iconst_1.class);
         register(iconst_2.class);
+        register(iconst_3.class);
         register(istore_1.class);
         register(istore_2.class);
         register(istore_3.class);
