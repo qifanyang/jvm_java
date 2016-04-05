@@ -5,7 +5,7 @@ import vm.lib.Log;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-public class A {
+public class A{
     private int x;
     private A a = new A();
 
@@ -16,20 +16,16 @@ public class A {
     public A(int x){
         this.x = x;
     }
-    private void test(){
-        this.x = 55555555;
-        int xx = s(6);
-        System.out.println(xx);
-    }
 
-    public int s(int z){
-    return z;
+    public int add(int x, int y){
+        return x + y;
     }
 
     public static void main(String[] args) {
         int x = 1;
         int y = 2;
-        int z = x + y;
+        A a = new A();
+        int z = a.add(x, y);
         Log log = new Log();
         log.print(x);
         log.print(" + ");

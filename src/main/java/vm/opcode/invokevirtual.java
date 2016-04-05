@@ -12,7 +12,8 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 
 /**
- * 调用实例方法,操作数为MethodRef,方法调用过程:<br>
+ * 调用对象所属类中的方法(包括从父类中继承的),操作数为MethodRef,因为当前ClassFile中methodInfo[]没有包含
+ * 父类的methodInfo,所以invokevirtual会有一个向上递归查找的过程,(虚方法表可以用来优化)
  * 先将引用压入操作数栈,再压入参数, 然后执行方法调用
  *
  *
@@ -81,7 +82,13 @@ public class invokevirtual extends OpcodeSupport{
             //实例方法调用,暂时不处理构造方法,不要在构造方法里面加初始化
 //            if(methodName.equals("<init>"))return null;
 
-            frame.getThreadStack().createStackFrame(methodInfo, rtClass.getClassFile().getConstant_pool_info());
+            StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo, rtClass.getClassFile().getConstant_pool_info());
+            //方法调用,填充参数到新栈帧
+            //...objectref,x,y->
+            for(int i = newFrame.getLocals().length - 1; i >= 0; i--){
+                newFrame.getLocals()[i] = frame.getOperands().pop();
+            }
+
         }
         return null;
     }

@@ -22,7 +22,7 @@ public class ThreadStack extends Thread{
     /**
      * 方法调用,创建栈帧并压栈
      */
-    public void createStackFrame(MethodInfo methodInfo, ConstantPoolInfo[] constantPool){
+    public StackFrame createStackFrame(MethodInfo methodInfo, ConstantPoolInfo[] constantPool){
         if(frames.size() > MAX_STACK_FRAME_DEEP){
             throw new StackOverflowError("方法调用嵌套太多");
         }
@@ -31,19 +31,18 @@ public class ThreadStack extends Thread{
         frame.init(methodInfo, constantPool, this);
 
         frames.addLast(frame);//压栈
-        if(null != currentFrame){
-            currentFrame.setPc(pc);
-        }
         currentFrame = frame;
-
+        return frame;
     }
 
     /**
      * 调用方法结束,从线程栈中移除栈帧
      */
-    public void popStackFrame(){
-        currentFrame = frames.removeLast();
+    public StackFrame popStackFrame(){
+        frames.removeLast();
+        currentFrame = frames.getLast();
 //        pc = currentFrame.getPc();
+        return currentFrame;
     }
 
 

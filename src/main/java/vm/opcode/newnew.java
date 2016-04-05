@@ -48,12 +48,14 @@ public class newnew extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
-
+        //new A() , 操作数为常量池索引, 对应的item为ConstantClassInfo
         ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, fetchOperand(frame, 2), ConstantClassInfo.class);
 
+        //new 操作会触发类加载操作, 得到类的运行时状态, 类似c程序中的代码区
         ConstantUtf8Info classNameInfo = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
         RTClass rtClass = RTMethodArea.loadClass(classNameInfo.string());
 
+        //在堆中为新的对象分配内存空间,虚拟机需要为实例变量设置默认值
         RTObject rtObject = new RTObject();
         rtObject.setRtClass(rtClass);
         //初始化实例变量为默认值
@@ -61,6 +63,7 @@ public class newnew extends OpcodeSupport{
         RTHeap.register(rtObject);
 
         frame.getOperands().push(rtObject);
+        //new指令执行完毕, 但是对象还没有完成初始化, 接下来使用指令invokespecial <init> 调用构造方法完成初始化
         return null;
     }
 }
