@@ -1,7 +1,7 @@
 package vm.parser.cp;
 
 import vm.parser.ClassFileReader;
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantInvokeDynamicInfo implements IConstantPoolObject {
+public class ConstantInvokeDynamicInfo implements ConstantPoolObject{
     U1 tag = U1.of(18);
     U2 bootstrap_method_attr_index;
     U2 name_and_type_index;

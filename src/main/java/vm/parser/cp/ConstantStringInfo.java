@@ -1,7 +1,7 @@
 package vm.parser.cp;
 
 import vm.parser.ClassFileReader;
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantStringInfo implements IConstantPoolObject {
+public class ConstantStringInfo implements ConstantPoolObject{
     U1 tag = U1.of(8);
     U2 string_index;//指向constant_utf8_info的索引
 

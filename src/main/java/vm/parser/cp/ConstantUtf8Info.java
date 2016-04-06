@@ -4,7 +4,6 @@ import vm.parser.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.util.Arrays;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantUtf8Info implements IConstantPoolObject {
+public class ConstantUtf8Info implements ConstantPoolObject{
     U1 tag = U1.of(1);
     U2 length;//bytes长度
     U1 bytes[];//utf8编码的字节数组

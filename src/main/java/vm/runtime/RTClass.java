@@ -1,9 +1,6 @@
 package vm.runtime;
 
 import vm.parser.*;
-import vm.parser.cp.ConstantMethodRefInfo;
-import vm.parser.cp.ConstantNameAndTypeInfo;
-import vm.parser.cp.ConstantPoolInfo;
 import vm.parser.cp.ConstantUtf8Info;
 
 import java.util.HashMap;
@@ -28,8 +25,8 @@ public class RTClass{
         for(FieldInfo fieldInfo : fields){
             U2 access_flags = fieldInfo.getAccess_flags();
             if((access_flags.value & 0x0008) != 0){//ACC_STATIC 0x0008 static，表示静态字段。
-                IConstantPoolObject name = classFile.getConstant_pool_info()[fieldInfo.getName_index().value].getConstantPoolObject();
-                IConstantPoolObject descriptor = classFile.getConstant_pool_info()[fieldInfo.getDescriptor_index().value].getConstantPoolObject();
+                ConstantPoolObject name = classFile.getConstant_pool_info()[fieldInfo.getName_index().value].getConstantPoolObject();
+                ConstantPoolObject descriptor = classFile.getConstant_pool_info()[fieldInfo.getDescriptor_index().value].getConstantPoolObject();
 
                 String descriptorStr = descriptor.toString();
                 if(descriptorStr.equals("B")){

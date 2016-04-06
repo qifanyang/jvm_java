@@ -1,7 +1,7 @@
 package vm.parser.cp;
 
 import vm.parser.ClassFileReader;
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantIntegerInfo implements IConstantPoolObject {
+public class ConstantIntegerInfo implements ConstantPoolObject{
     U1 tag = U1.of(3);
     U1 bytes[] = new U1[4];//Big-Endian , byte short boolean char 都用integer表示
 

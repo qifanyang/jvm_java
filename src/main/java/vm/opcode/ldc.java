@@ -1,6 +1,6 @@
 package vm.opcode;
 
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.cp.ConstantFloatInfo;
 import vm.parser.cp.ConstantIntegerInfo;
 import vm.parser.cp.ConstantStringInfo;
@@ -22,7 +22,7 @@ public class ldc extends OpcodeSupport{
     public Object operate(StackFrame frame){
         int operand = fetchOperand(frame, 1);
 
-        IConstantPoolObject constantPoolObject = indexConstantPoolObject(frame, operand, IConstantPoolObject.class);
+        ConstantPoolObject constantPoolObject = indexConstantPoolObject(frame, operand, ConstantPoolObject.class);
         if(constantPoolObject instanceof ConstantStringInfo){
             ConstantStringInfo stringInfo = (ConstantStringInfo) constantPoolObject;
             ConstantUtf8Info utf8Info = indexConstantPoolObject(frame, stringInfo.getString_index(), ConstantUtf8Info.class);

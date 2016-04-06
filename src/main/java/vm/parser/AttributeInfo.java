@@ -1,9 +1,6 @@
 package vm.parser;
 
-import vm.parser.attribute.CodeAttribute;
-import vm.parser.attribute.LineNumberTableAttribute;
-import vm.parser.attribute.LocalVariableTableAttribute;
-import vm.parser.attribute.SourceFileAttribute;
+import vm.parser.attribute.*;
 import vm.parser.cp.ConstantPoolInfo;
 import vm.parser.cp.ConstantUtf8Info;
 
@@ -22,7 +19,7 @@ public class AttributeInfo {
     U4 attribute_length;
     U1 info[];//这里类似常量池,需要根据attribute_name_index的值判断是那种attribute
 
-    List<IAttributeObject> attributes = new ArrayList<>();
+    List<AttributeObject> attributes = new ArrayList<>();
     ClassFile cf;
     boolean isTop = true;//属性包含属性
     public void parse(ClassFileReader reader) throws IOException {
@@ -32,7 +29,7 @@ public class AttributeInfo {
 
         //该处常量池必须是constant_utf8_info结构
         ConstantPoolInfo constantPoolInfo = cf.getConstant_pool_info()[attribute_name_index.value];
-        IConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
+        ConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
 
         if(constantPoolInfo.getTag().value != 1){
             //jvm规定必须是constant_utf8_info
@@ -47,7 +44,7 @@ public class AttributeInfo {
 //        }
         String attributeName = utf8Info.string();
 
-        IAttributeObject attributeObject = null;
+        AttributeInfoSupport attributeObject = null;
         switch (attributeName){
             case "Code":
                 attributeObject = new CodeAttribute(cf);
@@ -61,10 +58,14 @@ public class AttributeInfo {
             case "SourceFile":
                 attributeObject = new SourceFileAttribute(cf);
                 break;
+            case "StackMapTable":
+                attributeObject = new StackMapTableAttribute();
+                break;
             default:
                 throw new IllegalStateException("不能处理的属性类型  :" + attributeName);
         }
-
+        attributeObject.setAttribute_name_index(attribute_name_index);
+        attributeObject.setAttribute_length(attribute_length);
         attributeObject.parse(reader);
         attributes.add(attributeObject);
 

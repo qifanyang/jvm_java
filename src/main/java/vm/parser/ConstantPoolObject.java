@@ -5,7 +5,7 @@ package vm.parser;
  * @author yangqf
  * @version 1.0 2016/3/26
  */
-public interface IConstantPoolObject extends Parser{
+public interface ConstantPoolObject extends Parser{
 
     public U1 getTag();
 

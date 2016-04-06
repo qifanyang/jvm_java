@@ -1,11 +1,9 @@
 package vm.opcode;
 
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
-import vm.parser.cp.ConstantPoolInfo;
 import vm.runtime.StackFrame;
-import vm.runtime.ThreadStack;
 
 /**
  * @author yangqf
@@ -29,18 +27,18 @@ public abstract class OpcodeSupport implements Opcode{
      * @return
      */
     protected int fetchOperand(StackFrame frame, int operandNum){
-        int pc = frame.getThreadStack().getPc();//goto pc实现跳转
+        int pc = frame.getPc();//goto pc实现跳转
 //        int operandNum = operandNum();
         int operand = 0;
         if(1 == operandNum){
-            U1 b1 = frame.getCode()[pc+1];
+            U1 b1 = frame.getCode()[pc];
             operand = b1.value;
-            frame.getThreadStack().setPc(pc+1);
+            frame.setPc(pc+1);
         }else if(2 == operandNum){
-            U1 b1 = frame.getCode()[pc+1];
-            U1 b2 = frame.getCode()[pc+2];
+            U1 b1 = frame.getCode()[pc];
+            U1 b2 = frame.getCode()[pc+1];
             operand = (((byte)b1.value) << 8)| ((byte)b2.value);
-            frame.getThreadStack().setPc(pc+2);
+            frame.setPc(pc+2);
         }else {
             throw new IllegalStateException("无法读取操作数, 该指令操作数个数:"+operandNum);
         }
@@ -49,7 +47,7 @@ public abstract class OpcodeSupport implements Opcode{
     }
 
     protected <T> T indexConstantPoolObject(StackFrame frame, int index, Class<T> t){
-        IConstantPoolObject constantPoolObject = frame.getConstantPool()[index].getConstantPoolObject();
+        ConstantPoolObject constantPoolObject = frame.getConstantPool()[index].getConstantPoolObject();
         return (T) constantPoolObject;
     }
 

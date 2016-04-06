@@ -22,7 +22,7 @@ public class VirtualMachine {
         for(MethodInfo methodInfo : methods){
             U2 name_index = methodInfo.getName_index();
             ConstantPoolInfo constantPoolInfo = classFile.getConstant_pool_info()[name_index.value];
-            IConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
+            ConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
             ConstantUtf8Info utf8Info = (ConstantUtf8Info) constantPoolObject;
             if(utf8Info.string().equals("main")){
                 mainMethodInfo = methodInfo;

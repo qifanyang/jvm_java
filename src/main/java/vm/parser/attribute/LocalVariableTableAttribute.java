@@ -10,9 +10,9 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class LocalVariableTableAttribute implements IAttributeObject{
-    U2 attribute_name_index;
-    U4 attribute_length;
+public class LocalVariableTableAttribute extends AttributeInfoSupport{
+//    U2 attribute_name_index;
+//    U4 attribute_length;
     U2 local_variable_table_length;
     LocalVariableTable local_variable_tables[];
 

@@ -51,4 +51,9 @@ public class StackFrame {
         }
         System.out.println("----------------------------");
     }
+
+    public void setPc(int pc){
+        this.pc = pc;
+        this.threadStack.setPc(pc);
+    }
 }

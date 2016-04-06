@@ -48,8 +48,9 @@ public class newnew extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
+        int operand = fetchOperand(frame, 2);
         //new A() , 操作数为常量池索引, 对应的item为ConstantClassInfo
-        ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, fetchOperand(frame, 2), ConstantClassInfo.class);
+        ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, operand, ConstantClassInfo.class);
 
         //new 操作会触发类加载操作, 得到类的运行时状态, 类似c程序中的代码区
         ConstantUtf8Info classNameInfo = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);

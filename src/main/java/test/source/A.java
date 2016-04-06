@@ -1,3 +1,5 @@
+package test.source;
+
 import vm.lib.Log;
 
 /**
@@ -20,6 +22,10 @@ public class A{
         A a = new A();
         int z = a.add(x, y);
         Log log = new Log();
+        if(z == 3){
+            y = 1;
+            log.println("execute if ...");
+        }
         log.print(x);
         log.print(" + ");
         log.print(y);

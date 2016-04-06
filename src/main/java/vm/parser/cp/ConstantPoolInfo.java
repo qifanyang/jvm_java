@@ -1,6 +1,6 @@
 package vm.parser.cp;
 
-import vm.parser.IConstantPoolObject;
+import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 
 /**
@@ -19,8 +19,8 @@ public class ConstantPoolInfo {
      */
     U1 info[];
     /**
-     * 解析info[]出来的数据结构,{@link IConstantPoolObject}是所有常量池结构的父接口
+     * 解析info[]出来的数据结构,{@link ConstantPoolObject}是所有常量池结构的父接口
      **/
-    IConstantPoolObject constantPoolObject;
+    ConstantPoolObject constantPoolObject;
 
 }

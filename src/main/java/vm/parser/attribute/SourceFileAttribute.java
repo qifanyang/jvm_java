@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class SourceFileAttribute implements IAttributeObject {
-    U2 attribute_name_index;
-    U4 attribute_length;
+public class SourceFileAttribute extends AttributeInfoSupport{
+//    U2 attribute_name_index;
+//    U4 attribute_length;
     U2 source_file_index;
 
     ClassFile cf;

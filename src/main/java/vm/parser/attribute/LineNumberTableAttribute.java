@@ -10,9 +10,9 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class LineNumberTableAttribute implements IAttributeObject{
-    U2 attribute_name_index;
-    U4 attribute_length;
+public class LineNumberTableAttribute extends AttributeInfoSupport{
+//    U2 attribute_name_index;
+//    U4 attribute_length;
     U2 line_number_table_length;
     LineNumberTable line_number_table[];
 

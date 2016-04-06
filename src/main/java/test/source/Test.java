@@ -1,3 +1,5 @@
+package test.source;
+
 /**
  * 测试对象创建,方法调用
  * @author yangqf

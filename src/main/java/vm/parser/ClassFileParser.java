@@ -60,7 +60,7 @@ public class ClassFileParser {
         //常量池的索引范围是1至constant_pool_count−1
         for(int i = 1; i < constant_pool_count.value; i++){
             ConstantPoolInfo cpInfo = new ConstantPoolInfo();
-            IConstantPoolObject constantPoolObject = null;
+            ConstantPoolObject constantPoolObject = null;
             U1 tag = reader.readU1();//常量池tag
             switch (tag.value){
                 case 1:
@@ -221,13 +221,14 @@ public class ClassFileParser {
             parser.parse();
             return parser.cf;
         }catch(Exception e){
+            e.printStackTrace();
             new IllegalStateException("加载类失败, url =" + path);
         }
         throw  new IllegalStateException("加载类失败, url =" + path);
     }
     public static void main(String[] args) throws Exception {
 //        InputStream in = ClassFileParser.class.getClassLoader().getResourceAsStream("");
-        File file = new File(System.getProperty("user.dir") + "\\target\\classes\\A.class").getCanonicalFile();
+        File file = new File(System.getProperty("user.dir") + "\\target\\classes\\test\\source\\A.class").getCanonicalFile();
         System.out.println("file = " + file.getAbsolutePath());
         FileInputStream fis = new FileInputStream(file);
         DataInputStream dataInput = new DataInputStream(fis);

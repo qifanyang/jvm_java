@@ -1,6 +1,5 @@
 package vm.runtime;
 
-import vm.opcode.OpcodeExecuteUnit;
 import vm.parser.MethodInfo;
 import vm.parser.cp.ConstantPoolInfo;
 
@@ -14,7 +13,7 @@ import java.util.LinkedList;
 @lombok.Getter
 @lombok.Setter
 public class ThreadStack extends Thread{
-    private int pc;//进入方法栈时重置pc为0
+    private int pc;//进入方法栈时重置pc为0, jvm说在线程栈中, 方法调用放在StackFrame更合适, 暂时还没想到放在这里的理由
     private final static int MAX_STACK_FRAME_DEEP = 1000;
     private LinkedList<StackFrame> frames = new LinkedList<>();
 

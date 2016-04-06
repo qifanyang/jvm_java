@@ -12,9 +12,9 @@ import java.io.IOException;
 
 @lombok.Getter
 @lombok.Setter
-public class CodeAttribute implements IAttributeObject{
-    U2 attribute_name_index;
-    U4 attribute_length;
+public class CodeAttribute extends AttributeInfoSupport{
+//    U2 attribute_name_index;
+//    U4 attribute_length;
     U2 max_stack;
     U2 max_locals;
     U4 code_length;

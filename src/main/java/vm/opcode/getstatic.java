@@ -1,7 +1,5 @@
 package vm.opcode;
 
-import vm.parser.IConstantPoolObject;
-import vm.parser.U2;
 import vm.parser.cp.*;
 import vm.runtime.RTClass;
 import vm.runtime.RTMethodArea;

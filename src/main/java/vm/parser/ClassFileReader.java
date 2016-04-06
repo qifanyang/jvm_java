@@ -62,6 +62,12 @@ public class ClassFileReader {
         }
     }
 
+    public void skip(U4 u4) throws IOException{
+        for(int i = 0; i < u4.value; i++){
+            readU1();
+        }
+    }
+
     public void mark(){
         this.mark = position;
     }

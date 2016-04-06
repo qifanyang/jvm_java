@@ -1,5 +1,6 @@
-package vm.opcode;
+package vm.runtime;
 
+import vm.opcode.*;
 import vm.parser.U1;
 import vm.runtime.StackFrame;
 
@@ -50,6 +51,7 @@ public class OpcodeExecuteUnit{
         register(astore_3.class);
         register(dup.class);
         register(ldc.class);
+        register(if_icmpne.class);
 
         System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
@@ -78,12 +80,13 @@ public class OpcodeExecuteUnit{
             if(opcode == null){
                 throw new IllegalStateException("非法字节码 , opcode = " + u1.value);
             }else{
+                //执行指令前先修改pc到下一指令,
+                //对于有操作数的opcode,在读取操作数的时候修改pc
+                //operate中有跳转指令,会直接修改pc值到目标pc offset,所以不能再operate方法之后修改pc
+                pc = frame.getThreadStack().getPc()+1;
+                frame.setPc(pc);
                 opcode.operate(frame);
             }
-            //对于有操作数的opcode,在operate方法中修改pc值
-            pc = frame.getThreadStack().getPc()+1;
-            frame.getThreadStack().setPc(pc);
-            frame.setPc(pc);
 
             //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变
             if(frame != frame.getThreadStack().getCurrentFrame()){
@@ -91,6 +94,8 @@ public class OpcodeExecuteUnit{
                 pc = frame.getThreadStack().getCurrentFrame().getPc();
                 frame.getThreadStack().setPc(pc);
                 frame = frame.getThreadStack().getCurrentFrame();
+            }else {
+                pc = frame.getPc();
             }
             //调试
 //            System.out.println("opcode = " + opcode);
