@@ -61,6 +61,12 @@ public class AttributeInfo {
             case "StackMapTable":
                 attributeObject = new StackMapTableAttribute();
                 break;
+            case "Signature":
+                attributeObject = new SignatureAttribute();
+                break;
+            case "Exceptions":
+                attributeObject = new ExceptionsAttribute();
+                break;
             default:
                 throw new IllegalStateException("不能处理的属性类型  :" + attributeName);
         }

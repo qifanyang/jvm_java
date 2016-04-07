@@ -14,7 +14,11 @@ public class ifeq extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
-
+        int offset = fetchOperand(frame, 2);
+        Integer v = (Integer) frame.getOperands().pop();
+        if(v.equals(0)){
+            frame.jumpOffset(offset);
+        }
         return null;
     }
 }

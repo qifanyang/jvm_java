@@ -107,13 +107,15 @@ public class OpcodeExecuteUnit{
                 frame.setPc(pc + frame.getJumpOffset());
                 frame.setJumpOffset(0);
             }
-            //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变
-            if(frame != frame.getThreadStack().getCurrentFrame()){
+            //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变, 线程栈中的栈帧没有了,退出main方法
+            if(frame.getThreadStack().getCurrentFrame() == null){
+                break;
+            }else if(frame != frame.getThreadStack().getCurrentFrame()){
                 code = frame.getThreadStack().getCurrentFrame().getCode();
                 pc = frame.getThreadStack().getCurrentFrame().getPc();
                 frame.getThreadStack().setPc(pc);
                 frame = frame.getThreadStack().getCurrentFrame();
-            }else {
+            }else{
                 pc = frame.getPc();
             }
             //调试

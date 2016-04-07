@@ -11,6 +11,7 @@ public class MainLoader {
     public static void main(String[] args) throws Exception{
         VirtualMachine machine = new VirtualMachine();
 
+//        machine.run("java.lang.Object");
         machine.run("test.source.A");
 
     }

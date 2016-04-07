@@ -14,7 +14,7 @@ import java.util.LinkedList;
 @lombok.Setter
 public class ThreadStack extends Thread{
     private int pc;//进入方法栈时重置pc为0, jvm说在线程栈中, 方法调用放在StackFrame更合适, 暂时还没想到放在这里的理由
-    private final static int MAX_STACK_FRAME_DEEP = 1000;
+    private final static int MAX_STACK_FRAME_DEEP = 50;
     private LinkedList<StackFrame> frames = new LinkedList<>();
 
     private StackFrame currentFrame;
@@ -23,7 +23,7 @@ public class ThreadStack extends Thread{
      */
     public StackFrame createStackFrame(MethodInfo methodInfo, ConstantPoolInfo[] constantPool){
         if(frames.size() > MAX_STACK_FRAME_DEEP){
-            throw new StackOverflowError("方法调用嵌套太多");
+            throw new StackOverflowError("方法调用嵌套太多, size = " + frames.size());
         }
 
         StackFrame frame = new StackFrame();
@@ -39,6 +39,9 @@ public class ThreadStack extends Thread{
      */
     public StackFrame popStackFrame(){
         frames.removeLast();
+        if(frames.isEmpty()){
+            return null;
+        }
         currentFrame = frames.getLast();
 //        pc = currentFrame.getPc();
         return currentFrame;
@@ -48,21 +51,6 @@ public class ThreadStack extends Thread{
     @Override
     public void run(){
         while(true){
-//            synchronized(this){
-//                if(frames.isEmpty()){
-//                    try{
-//                        wait();//当前线程挂起,不持有monitor
-//                    }catch(InterruptedException e){
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-            if(frames.isEmpty()){
-                System.out.println();
-                System.out.println("虚拟机执行字节码完毕,正常退出...");
-                break;
-            }
-
             try{
                 OpcodeExecuteUnit.execute(currentFrame);
             }catch(Exception e){
@@ -70,8 +58,13 @@ public class ThreadStack extends Thread{
                 throw e;
             }
 
+            if(frames.isEmpty()){
+                System.out.println();
+                System.out.println("虚拟机执行字节码完毕,正常退出...");
+                break;
+            }
             //方法调用完成,当前栈帧弹出,上一个栈帧成为新的当前栈帧
-            currentFrame = frames.pop();
+//            currentFrame = frames.pop();
         }
     }
 }

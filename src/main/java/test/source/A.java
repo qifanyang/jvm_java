@@ -9,8 +9,6 @@ import vm.lib.Log;
  */
 public class A{
     private int x;
-    private A a = new A();
-
 
     public int add(int x, int y){
         return x + y;

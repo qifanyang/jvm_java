@@ -79,8 +79,6 @@ public class invokevirtual extends OpcodeSupport{
                 e.printStackTrace();
             }
         }else {
-            //实例方法调用,暂时不处理构造方法,不要在构造方法里面加初始化
-//            if(methodName.equals("<init>"))return null;
 
             StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo, rtClass.getClassFile().getConstant_pool_info());
             //方法调用,填充参数到新栈帧

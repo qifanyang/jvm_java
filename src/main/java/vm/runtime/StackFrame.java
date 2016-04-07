@@ -16,15 +16,15 @@ import java.util.Iterator;
 @lombok.Getter
 @lombok.Setter
 public class StackFrame {
-    private Object locals[];
+    private Object locals[];//用于方法形参和局部变量存储
     private OperandStack operands;
 
-    private U1 code[];
+    private U1 code[];//被调用方法的字节码
 
-    private ConstantPoolInfo[] constantPool;
+    private ConstantPoolInfo[] constantPool;//指向常量池的引用,用于实现动态链接,将符号引用解析为实际引用
     private MethodInfo methodInfo;
     private ThreadStack threadStack;
-    private int pc;
+    private int pc;//方法调用方法返回时继续执行pc指向的字节码指令
     private Opcode currentOpcode;
     private int jumpOffset;//跳转偏移量,当执行了跳转指令时该值被设定为偏移量,没有跳转的话值为0
 
@@ -62,6 +62,10 @@ public class StackFrame {
         this.threadStack.setPc(pc);
     }
 
+    /**
+     * 跳转指令会修改该值,字节码执行单元不会按1+操作数个数增加pc值
+     * @param offset
+     */
     public void jumpOffset(int offset){
         this.jumpOffset = offset;
     }

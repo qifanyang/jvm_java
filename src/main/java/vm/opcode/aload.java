@@ -1,5 +1,6 @@
 package vm.opcode;
 
+import vm.runtime.RTObject;
 import vm.runtime.StackFrame;
 
 /**
@@ -16,7 +17,7 @@ public class aload extends OpcodeSupport{
     @Override
     public Object operate(StackFrame frame){
         int operand = fetchOperand(frame, 1);
-        frame.getOperands().push(frame.getLocals()[operand]);
+        frame.getOperands().push((RTObject)frame.getLocals()[operand]);
         return null;
     }
 }
