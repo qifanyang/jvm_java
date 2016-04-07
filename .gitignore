@@ -1,5 +1,5 @@
 ### Java template
-target/classes/vm/*
+target/classes/*
 
 # idea config
 .idea/*
