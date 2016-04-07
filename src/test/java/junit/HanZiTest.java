@@ -1,4 +1,4 @@
-package test.junit;
+package junit;
 
 import org.junit.Test;
 import vm.runtime.VirtualMachine;
@@ -7,12 +7,12 @@ import vm.runtime.VirtualMachine;
  * @author yangqf
  * @version 1.0 2016/4/7
  */
-public class InstanceFuncTest{
+public class HanZiTest{
 
     @Test
-    public void test() throws Exception{
+    public void testHanZi() throws Exception{
         VirtualMachine machine = new VirtualMachine();
 
-        machine.run("test.source.InstanceFunc");
+        machine.run("source.HanZi");
     }
 }

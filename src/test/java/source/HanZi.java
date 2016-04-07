@@ -1,4 +1,4 @@
-package test.source;
+package source;
 
 import org.junit.*;
 import vm.lib.Log;

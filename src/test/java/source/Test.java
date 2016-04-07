@@ -1,4 +1,4 @@
-package test.source;
+package source;
 
 /**
  * 测试对象创建,方法调用

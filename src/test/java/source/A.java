@@ -1,4 +1,4 @@
-package test.source;
+package source;
 
 import vm.lib.Log;
 

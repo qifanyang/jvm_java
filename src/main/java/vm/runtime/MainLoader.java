@@ -12,8 +12,8 @@ public class MainLoader {
         VirtualMachine machine = new VirtualMachine();
 
 //        machine.run("java.lang.Object");
-//        machine.run("test.source.A");
-        machine.run("test.source.HanZiTest");
+//        machine.run("source.A");
+        machine.run("source.HanZi");
 
     }
 
