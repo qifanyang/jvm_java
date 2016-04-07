@@ -41,6 +41,10 @@ public class VirtualMachine {
 
         mainThreadStack.start();
         //控制权校给主线程栈 ...
+
+        mainThreadStack.join();
+        //ThreadStack.currentThread().join();//当前线程等待当前线程结束....TODO fuck
+
     }
 
     /**

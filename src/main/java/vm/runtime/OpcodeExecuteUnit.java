@@ -66,7 +66,7 @@ public class OpcodeExecuteUnit{
         register(iinc.class);
         register(gotogoto.class);
 
-        System.out.println("完成字节码指令数量 :" + opcodeMap.size());
+       // System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
 
     public static void register(Class<? extends Opcode> opcode){

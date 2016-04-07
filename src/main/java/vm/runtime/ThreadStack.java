@@ -66,5 +66,6 @@ public class ThreadStack extends Thread{
             //方法调用完成,当前栈帧弹出,上一个栈帧成为新的当前栈帧
 //            currentFrame = frames.pop();
         }
+        System.out.println("线程栈退出...");
     }
 }
