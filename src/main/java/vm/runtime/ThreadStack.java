@@ -63,7 +63,12 @@ public class ThreadStack extends Thread{
                 break;
             }
 
-            OpcodeExecuteUnit.execute(currentFrame);
+            try{
+                OpcodeExecuteUnit.execute(currentFrame);
+            }catch(Exception e){
+                currentFrame.show();
+                throw e;
+            }
 
             //方法调用完成,当前栈帧弹出,上一个栈帧成为新的当前栈帧
             currentFrame = frames.pop();

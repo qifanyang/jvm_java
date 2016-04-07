@@ -11,6 +11,14 @@ import vm.runtime.StackFrame;
  */
 public abstract class OpcodeSupport implements Opcode{
 
+    int operandLength;//最好放到frame中去
+
+    public int getOperandLength(){
+        int tmp = operandLength;
+        this.operandLength = 0;
+        return tmp;
+    }
+
     @Override
     public void register(){
     }
@@ -31,14 +39,16 @@ public abstract class OpcodeSupport implements Opcode{
 //        int operandNum = operandNum();
         int operand = 0;
         if(1 == operandNum){
-            U1 b1 = frame.getCode()[pc];
+            this.operandLength += 1;//连续两次读取一个字节的操作数
+            U1 b1 = frame.getCode()[pc+this.operandLength];
             operand = b1.value;
-            frame.setPc(pc+1);
+//            frame.setPc(pc+1);
         }else if(2 == operandNum){
-            U1 b1 = frame.getCode()[pc];
-            U1 b2 = frame.getCode()[pc+1];
+            U1 b1 = frame.getCode()[pc+1];
+            U1 b2 = frame.getCode()[pc+2];
             operand = (((byte)b1.value) << 8)| ((byte)b2.value);
-            frame.setPc(pc+2);
+//            frame.setPc(pc+2);
+            this.operandLength += 2;
         }else {
             throw new IllegalStateException("无法读取操作数, 该指令操作数个数:"+operandNum);
         }

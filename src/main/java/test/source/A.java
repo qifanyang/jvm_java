@@ -17,22 +17,19 @@ public class A{
     }
 
     public static void main(String[] args) {
-        int x = 1;
-        int y = 2;
-        A a = new A();
-        int z = a.add(x, y);
         Log log = new Log();
-        if(z == 3){
+        for(int i = 0; i < 3; i++){
+           log.println("fuck fuck");
+        }
+        int x = 10;
+        int y = 20;
+        A a = new A();
+        y = a.add(x, y);
+        if(y == 30){
             y = 1;
             log.println("execute if ...");
         }
         log.print(x);
-        log.print(" + ");
-        log.print(y);
-        log.print(" = ");
-        log.println(z);
-
-        log.print(3, "dddddd");
 
     }
 }

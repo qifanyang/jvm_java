@@ -46,12 +46,25 @@ public class OpcodeExecuteUnit{
         register(returnreturn.class);
         register(ireturn.class);
         register(aload.class);
+        register(aload_0.class);
+        register(aload_1.class);
+        register(aload_2.class);
         register(aload_3.class);
         register(astore.class);
+        register(astore_0.class);
+        register(astore_1.class);
+        register(astore_2.class);
         register(astore_3.class);
         register(dup.class);
         register(ldc.class);
         register(if_icmpne.class);
+        register(if_icmpeq.class);
+        register(if_icmpgt.class);
+        register(if_icmpge.class);
+        register(if_icmplt.class);
+        register(if_icmple.class);
+        register(iinc.class);
+        register(gotogoto.class);
 
         System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
@@ -83,11 +96,17 @@ public class OpcodeExecuteUnit{
                 //执行指令前先修改pc到下一指令,
                 //对于有操作数的opcode,在读取操作数的时候修改pc
                 //operate中有跳转指令,会直接修改pc值到目标pc offset,所以不能再operate方法之后修改pc
-                pc = frame.getThreadStack().getPc()+1;
-                frame.setPc(pc);
+                frame.setCurrentOpcode(opcode);
                 opcode.operate(frame);
             }
-
+            if(frame.getJumpOffset() == 0){
+                //没有跳转
+                ++pc;//指令自增
+                frame.setPc(pc + opcode.getOperandLength());
+            }else {
+                frame.setPc(pc + frame.getJumpOffset());
+                frame.setJumpOffset(0);
+            }
             //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变
             if(frame != frame.getThreadStack().getCurrentFrame()){
                 code = frame.getThreadStack().getCurrentFrame().getCode();

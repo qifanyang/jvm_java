@@ -1,5 +1,6 @@
 package vm.runtime;
 
+import vm.opcode.Opcode;
 import vm.parser.AttributeInfo;
 import vm.parser.MethodInfo;
 import vm.parser.U1;
@@ -24,6 +25,8 @@ public class StackFrame {
     private MethodInfo methodInfo;
     private ThreadStack threadStack;
     private int pc;
+    private Opcode currentOpcode;
+    private int jumpOffset;//跳转偏移量,当执行了跳转指令时该值被设定为偏移量,没有跳转的话值为0
 
     public void init(MethodInfo methodInfo, ConstantPoolInfo[] constantPool, ThreadStack threadStack){
         this.constantPool = constantPool;
@@ -40,6 +43,8 @@ public class StackFrame {
 
     public void show(){
         System.out.println("-------StackFrame-----------");
+        System.out.println("pc = " + pc);
+        System.out.println("opcode = " + currentOpcode);
         System.out.println("local variable :");
         for(Object o : locals){
             System.out.println(o);
@@ -56,4 +61,9 @@ public class StackFrame {
         this.pc = pc;
         this.threadStack.setPc(pc);
     }
+
+    public void jumpOffset(int offset){
+        this.jumpOffset = offset;
+    }
+
 }
