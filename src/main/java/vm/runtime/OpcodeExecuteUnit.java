@@ -102,11 +102,12 @@ public class OpcodeExecuteUnit{
             if(frame.getJumpOffset() == 0){
                 //没有跳转
                 ++pc;//指令自增
-                frame.setPc(pc + opcode.getOperandLength());
+                frame.setPc(pc + frame.getOperandOffset());
             }else {
-                frame.setPc(pc + frame.getJumpOffset());
-                frame.setJumpOffset(0);
+                frame.setPc(pc + frame.getOperandOffset());
             }
+            frame.setJumpOffset(0);
+            frame.setOperandOffset(0);
             //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变, 线程栈中的栈帧没有了,退出main方法
             if(frame.getThreadStack().getCurrentFrame() == null){
                 break;

@@ -27,6 +27,7 @@ public class StackFrame {
     private int pc;//方法调用方法返回时继续执行pc指向的字节码指令
     private Opcode currentOpcode;
     private int jumpOffset;//跳转偏移量,当执行了跳转指令时该值被设定为偏移量,没有跳转的话值为0
+    private int operandOffset;//指令操作数偏移量,相对于当前pc位置
 
     public void init(MethodInfo methodInfo, ConstantPoolInfo[] constantPool, ThreadStack threadStack){
         this.constantPool = constantPool;
