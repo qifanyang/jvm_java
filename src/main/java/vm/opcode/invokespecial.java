@@ -7,8 +7,10 @@ import vm.runtime.RTMethodArea;
 import vm.runtime.StackFrame;
 
 /**
- * invokespecial与invokevirtual区别,后者用于调用对象所属类中的方法(包括从父类中继承的)
- * 改指令用于调用构造方法<init>,private方法(access_flag区分,不用递归查找),父类方法(access_flag区分,以及methodref中的class_name_index)
+ * invokespecial与invokevirtual区别,
+ * invokevirtual用于调用对象所属类中的方法(包括从父类中继承的),有动态绑定,是基于当前对象的
+ * invokespecial用于调用构造方法<init>,private方法(access_flag区分,直接在当前类查找),直接父类方法(access_flag区分,直接去父类查找)
+ * 是静态绑定,基于引用,直接调用
  *
  * 方法调用时操作数为常量池索引,指向的数据为ConstantMethodref,包含了方法名,描述符,类名, 进行方法调用前对象的直接引用被压栈了
  * 通过栈中的对象直接引用可以找到对应的RTClass,通过RTClass和methodref查找methodInfo,然后进行方法调用
@@ -41,7 +43,8 @@ public class invokespecial extends OpcodeSupport{
         String methodDescriptor = indexConstantPoolObject(frame, nameAndTypeInfo.getDescriptor_index(), ConstantUtf8Info.class).string();
         ConstantPoolInfo[] constant_pool_info = rtClass.getClassFile().getConstant_pool_info();
         //methodRefInfo是当前常量池中的methodref,需要根据该值到rtClass中去查找目标methodinfo
-        MethodInfo methodInfo = rtClass.searchMethodInfo(methodName, methodDescriptor);
+        //TODO 优化 根据方法access_flag private就在本地查找, public , protected在父类查找, <init> 在指定的class中查找
+        MethodInfo methodInfo = rtClass.searchRecursiveMethodInfo(methodName, methodDescriptor);
 
         //没有实现递归查找
         StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);

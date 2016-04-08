@@ -4,6 +4,7 @@ import vm.parser.MethodInfo;
 import vm.parser.cp.*;
 import vm.runtime.RTClass;
 import vm.runtime.RTMethodArea;
+import vm.runtime.RTObject;
 import vm.runtime.StackFrame;
 import vm.util.DescriptorUtil;
 
@@ -16,7 +17,11 @@ import java.util.LinkedList;
  * 父类的methodInfo,所以invokevirtual会有一个向上递归查找的过程,(虚方法表可以用来优化)
  * 先将引用压入操作数栈,再压入参数, 然后执行方法调用, 在执行该指令的时候,操作数栈中参数已经准备好了,注意方法调用参数顺序
  *
- *
+ * 当父类引用指向子类对象,调用方法的方法引用是指向父类的, invokevirtual #4                  // Method source/Father.say:()V
+ * 不能根据操作数指向的methodref查找方法,应该根据当前objectref去查找对应的class
+ * 为什么对象是son可以编译器却要使用father的方法签名?
+ * 这就是动态绑定,在运行时根据对象的class去绑定实际要执行的字节码
+ * 对应的invokespecial叫静态绑定,在加载类阶段就可以确定要调用的方法直接引用
  *
  * @author yangqf
  * @version 1.0 2016/4/3
@@ -32,6 +37,18 @@ public class invokevirtual extends OpcodeSupport{
     public Object operate(StackFrame frame){
         int operand = fetchOperand(frame, 2);
 
+        //动态绑定,要根据对象的reference来确定RTClass
+        //从当前栈帧中取出参数
+        LinkedList<Object> paraList = new LinkedList<>();
+        while(!frame.getOperands().isEmpty()){
+            paraList.addFirst(frame.getOperands().pop());
+        }
+        Object[] paraObjectsForCall = paraList.toArray(new Object[paraList.size()]);
+
+        RTObject refrence = (RTObject) paraList.removeFirst();//remove objectref, 反射调用不需要this
+        Object[] paraObjectsForReflectCall = paraList.toArray(new Object[paraList.size()]);
+
+
         //invokevirtual 要调用的目标方法
         ConstantMethodRefInfo methodRefInfo = indexConstantPoolObject(frame, operand, ConstantMethodRefInfo.class);
         //方法所属的类,如果没有加载要先加载,对象都创建类一定加载了
@@ -39,7 +56,8 @@ public class invokevirtual extends OpcodeSupport{
 
         ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
         //方法调用所在的rtclass
-        RTClass rtClass = RTMethodArea.loadClass(classNameUtf8Info.string());
+//        RTClass rtClass = RTMethodArea.loadClass(classNameUtf8Info.string());
+        RTClass rtClass = refrence.getRtClass();
 
         //准备构建方法名和方法描述符
         ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, methodRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
@@ -61,13 +79,13 @@ public class invokevirtual extends OpcodeSupport{
                 Class<?>[] classes = DescriptorUtil.fromDescriptor(methodDescriptor);
                 Method targetMethod = targetNativeCalss.getDeclaredMethod(methodName, classes);
                 //调用方法之前已经把objectref和parameter压栈, 这里需要把所有参数都取出来
-                LinkedList<Object> paraList = new LinkedList<>();
-                while(!frame.getOperands().isEmpty()){
-                    paraList.addFirst(frame.getOperands().pop());
-                }
-                paraList.removeFirst();//remove objectref
-                Object[] paraObjects = paraList.toArray(new Object[paraList.size()]);
-                targetMethod.invoke(targetNativeCalss, paraObjects);
+//                LinkedList<Object> paraList = new LinkedList<>();
+//                while(!frame.getOperands().isEmpty()){
+//                    paraList.addFirst(frame.getOperands().pop());
+//                }
+//                paraList.removeFirst();//remove objectref
+//                Object[] paraObjects = paraList.toArray(new Object[paraList.size()]);
+                targetMethod.invoke(targetNativeCalss, paraObjectsForReflectCall);
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }catch(NoSuchMethodException e){
@@ -82,8 +100,8 @@ public class invokevirtual extends OpcodeSupport{
             StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
             //方法调用,填充参数到新栈帧
             //...objectref,x,y->
-            for(int i = newFrame.getLocals().length - 1; i >= 0; i--){
-                newFrame.getLocals()[i] = frame.getOperands().pop();
+            for(int i = 0; i < newFrame.getLocals().length; i++){
+                newFrame.getLocals()[i] = paraObjectsForCall[i];
             }
 
         }

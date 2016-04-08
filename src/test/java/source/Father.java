@@ -6,9 +6,9 @@ import vm.lib.Log;
  * @author yangqf
  * @version 1.0 2016/4/8
  */
-public class Father{
+public class Father extends GrandFather{
 
-    protected void protecMethod(){
+    public void say(){
         Log.say("i am father");
     }
 }

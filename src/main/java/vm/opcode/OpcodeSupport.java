@@ -3,6 +3,7 @@ package vm.opcode;
 import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
+import vm.runtime.RTClass;
 import vm.runtime.StackFrame;
 
 /**
@@ -51,6 +52,15 @@ public abstract class OpcodeSupport implements Opcode{
 
     protected <T> T indexConstantPoolObject(StackFrame frame, U2 index, Class<T> t){
         return indexConstantPoolObject(frame, index.value, t);
+    }
+
+    protected <T> T indexConstantPoolObject(RTClass rtClass, int index, Class<T> t){
+        ConstantPoolObject constantPoolObject = rtClass.getClassFile().getConstant_pool_info()[index].getConstantPoolObject();
+        return (T) constantPoolObject;
+    }
+
+    protected <T> T indexConstantPoolObject(RTClass rtClass, U2 index, Class<T> t){
+        return indexConstantPoolObject(rtClass, index.value, t);
     }
 
 }

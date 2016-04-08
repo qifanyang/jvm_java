@@ -20,6 +20,6 @@ public class CommTest{
     @Test
     public void superMethodCallTest() throws Exception{
         VirtualMachine machine = new VirtualMachine();
-        machine.run("source.SuperCall");
+        machine.run("source.Son");
     }
 }
