@@ -45,10 +45,10 @@ public class getstatic extends OpcodeSupport{
         ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
 
         String className = classNameUtf8Info.string();
-        RTClass rtClass = RTMethodArea.findClass(className);//得到类运行时数据
-        if(null == rtClass){//静态字段所属于的类没有加载,这里加载
-            rtClass = RTMethodArea.loadClass(className);//加载System
-        }
+        RTClass rtClass = RTMethodArea.loadClass(className);//加载System
+//        if(null == rtClass){//静态字段所属于的类没有加载,这里加载
+//            rtClass = RTMethodArea.loadClass(className);//加载System
+//        }
 
         ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, fieldRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
         ConstantUtf8Info fieldNameUtf8Info = indexConstantPoolObject(frame, nameAndTypeInfo.getName_index(), ConstantUtf8Info.class);

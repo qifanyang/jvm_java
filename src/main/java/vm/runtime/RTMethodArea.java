@@ -20,7 +20,7 @@ public class RTMethodArea{
         classRTMap.put(key, classRT);
     }
 
-    public static RTClass findClass(String key){
+    private static RTClass findClass(String key){
         return classRTMap.get(key);
     }
 

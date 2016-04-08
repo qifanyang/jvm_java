@@ -12,9 +12,9 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 
 /**
- * 调用对象所属类中的方法(包括从父类中继承的),操作数为MethodRef,因为当前ClassFile中methodInfo[]没有包含
+ * 调用对象所属类中的方法(包括从父类中继承的),操作数为常量池索引,对应的数据结构为MethodRef,因为当前ClassFile中methodInfo[]没有包含
  * 父类的methodInfo,所以invokevirtual会有一个向上递归查找的过程,(虚方法表可以用来优化)
- * 先将引用压入操作数栈,再压入参数, 然后执行方法调用
+ * 先将引用压入操作数栈,再压入参数, 然后执行方法调用, 在执行该指令的时候,操作数栈中参数已经准备好了,注意方法调用参数顺序
  *
  *
  *
@@ -38,17 +38,16 @@ public class invokevirtual extends OpcodeSupport{
         ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, methodRefInfo.getClass_index(), ConstantClassInfo.class);
 
         ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
-        //目标方法所有类的运行时直接引用
-        RTClass rtClass = RTMethodArea.findClass(classNameUtf8Info.string());
-        if(null == rtClass){
-            rtClass = RTMethodArea.loadClass(classNameUtf8Info.string());
-        }
+        //方法调用所在的rtclass
+        RTClass rtClass = RTMethodArea.loadClass(classNameUtf8Info.string());
+
+        //准备构建方法名和方法描述符
         ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, methodRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
         String methodName = indexConstantPoolObject(frame, nameAndTypeInfo.getName_index(), ConstantUtf8Info.class).string();
         String methodDescriptor = indexConstantPoolObject(frame, nameAndTypeInfo.getDescriptor_index(), ConstantUtf8Info.class).string();
-        ConstantPoolInfo[] constant_pool_info = rtClass.getClassFile().getConstant_pool_info();
+
         //methodRefInfo是当前常量池中的methodref,需要根据该值到rtClass中去查找目标methodinfo
-        MethodInfo methodInfo = rtClass.getMethodInfoByMethodref(methodName, methodDescriptor);
+        MethodInfo methodInfo = rtClass.searchRecursiveMethodInfo(methodName, methodDescriptor);
 
         int accessFlag = methodInfo.getAccess_flags().value;
         if((accessFlag & 0x0100) != 0){
@@ -79,8 +78,8 @@ public class invokevirtual extends OpcodeSupport{
                 e.printStackTrace();
             }
         }else {
-
-            StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo, rtClass.getClassFile().getConstant_pool_info());
+            //methodInfo可能是从父类继承的, 所以RTClass也改变了
+            StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
             //方法调用,填充参数到新栈帧
             //...objectref,x,y->
             for(int i = newFrame.getLocals().length - 1; i >= 0; i--){

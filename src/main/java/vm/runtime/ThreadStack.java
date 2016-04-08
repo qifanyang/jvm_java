@@ -21,13 +21,13 @@ public class ThreadStack extends Thread{
     /**
      * 方法调用,创建栈帧并压栈
      */
-    public StackFrame createStackFrame(MethodInfo methodInfo, ConstantPoolInfo[] constantPool){
+    public StackFrame createStackFrame(MethodInfo methodInfo){
         if(frames.size() > MAX_STACK_FRAME_DEEP){
             throw new StackOverflowError("方法调用嵌套太多, size = " + frames.size());
         }
 
         StackFrame frame = new StackFrame();
-        frame.init(methodInfo, constantPool, this);
+        frame.init(methodInfo, methodInfo.getCf().getConstant_pool_info(), this);
 
         frames.addLast(frame);//压栈
         currentFrame = frame;

@@ -37,7 +37,7 @@ public class VirtualMachine {
         ThreadStack mainThreadStack = new ThreadStack();
 
 
-        mainThreadStack.createStackFrame(mainMethodInfo, classFile.getConstant_pool_info());
+        mainThreadStack.createStackFrame(mainMethodInfo);
 
         mainThreadStack.start();
         //控制权校给主线程栈 ...

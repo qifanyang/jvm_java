@@ -1,6 +1,7 @@
 package vm.runtime;
 
 import vm.parser.*;
+import vm.parser.cp.ConstantClassInfo;
 import vm.parser.cp.ConstantUtf8Info;
 
 import java.util.HashMap;
@@ -51,10 +52,13 @@ public class RTClass{
         }
     }
 
-    public MethodInfo getMethodInfoByMethodref(String methodName, String methodDescriptor){
-//        ConstantNameAndTypeInfo nameAndTypeInfo = (ConstantNameAndTypeInfo) classFile.getConstant_pool_info()[methodRefInfo.getName_and_type_index().value].getConstantPoolObject();
-//        ConstantUtf8Info methodNameUtf8Info = (ConstantUtf8Info) classFile.getConstant_pool_info()[nameAndTypeInfo.getName_index().value].getConstantPoolObject();
-//        String methodName = methodNameUtf8Info.string();
+    /**
+     * 在当前{@link RTClass}中查找方法直接引用
+     * @param methodName
+     * @param methodDescriptor
+     * @return
+     */
+    public MethodInfo searchMethodInfo(String methodName, String methodDescriptor){
         MethodInfo[] methods = classFile.getMethods();
         MethodInfo findMethodInfo = null;
         for(MethodInfo methodInfo : methods){
@@ -68,4 +72,27 @@ public class RTClass{
         return findMethodInfo;
     }
 
+    /**
+     * 向上递归查找方法调用
+     * @param methodName
+     * @param methodDescriptor
+     * @return
+     */
+    public MethodInfo searchRecursiveMethodInfo(String methodName, String methodDescriptor){
+
+        MethodInfo methodInfo = searchMethodInfo(methodName, methodDescriptor);
+        if(null == methodInfo){
+            U2 super_class = this.classFile.getSuper_class();
+            if(0 == super_class.value)return null;//递归停止条件为,没有父类了
+
+            ConstantClassInfo superClassInfo = (ConstantClassInfo) this.classFile.getConstant_pool_info()[super_class.value].getConstantPoolObject();
+            ConstantUtf8Info superClassNameInfo = (ConstantUtf8Info) this.classFile.getConstant_pool_info()[superClassInfo.getName_index().value].getConstantPoolObject();
+            //直接父类
+            RTClass rtClass = RTMethodArea.loadClass(superClassNameInfo.string());
+            return rtClass.searchMethodInfo(methodName, methodDescriptor);
+        }else {
+            return methodInfo;
+        }
+
+    }
 }

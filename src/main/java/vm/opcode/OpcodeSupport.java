@@ -18,27 +18,27 @@ public abstract class OpcodeSupport implements Opcode{
 
     /**
      * 取出当前opcode的操作数
-     * @param frame
-     * @param operandNum 操作数字节个数
+     * @param frame 当前栈帧
+     * @param operandOffset 操作数偏移量,字节
      * @return
      */
-    protected int fetchOperand(StackFrame frame, int operandNum){
+    protected int fetchOperand(StackFrame frame, int operandOffset){
         int pc = frame.getPc();//goto pc实现跳转
 //        int operandNum = operandNum();
         int operand = 0;
-        if(1 == operandNum){
+        if(1 == operandOffset){
             frame.setOperandOffset(frame.getOperandOffset()+1);//连续两次读取一个字节的操作数
             U1 b1 = frame.getCode()[pc+frame.getOperandOffset()];
             operand = b1.value;
 //            frame.setPc(pc+1);
-        }else if(2 == operandNum){
+        }else if(2 == operandOffset){
             frame.setOperandOffset(frame.getOperandOffset()+2);
             U1 b1 = frame.getCode()[pc+1];
             U1 b2 = frame.getCode()[pc+2];
             operand = (((byte)b1.value) << 8)| ((byte)b2.value);
 //            frame.setPc(pc+2);
         }else {
-            throw new IllegalStateException("无法读取操作数, 该指令操作数个数:"+operandNum);
+            throw new IllegalStateException("无法读取操作数, offset :"+operandOffset);
         }
 
         return operand;

@@ -41,10 +41,10 @@ public class invokespecial extends OpcodeSupport{
         String methodDescriptor = indexConstantPoolObject(frame, nameAndTypeInfo.getDescriptor_index(), ConstantUtf8Info.class).string();
         ConstantPoolInfo[] constant_pool_info = rtClass.getClassFile().getConstant_pool_info();
         //methodRefInfo是当前常量池中的methodref,需要根据该值到rtClass中去查找目标methodinfo
-        MethodInfo methodInfo = rtClass.getMethodInfoByMethodref(methodName, methodDescriptor);
+        MethodInfo methodInfo = rtClass.searchMethodInfo(methodName, methodDescriptor);
 
         //没有实现递归查找
-        StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo, rtClass.getClassFile().getConstant_pool_info());
+        StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
         //方法调用,填充参数到新栈帧
         //...objectref,x,y->
         for(int i = newFrame.getLocals().length - 1; i >= 0; i--){

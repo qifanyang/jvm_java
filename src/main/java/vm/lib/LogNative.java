@@ -26,4 +26,8 @@ public class LogNative{
         System.out.print(i);
         System.out.print(s);
     }
+
+    public static void say(String s){
+        System.out.println(s);
+    }
 }
