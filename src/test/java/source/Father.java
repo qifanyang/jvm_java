@@ -11,4 +11,8 @@ public class Father extends GrandFather{
     public void say(){
         Log.say("i am father");
     }
+
+    public static void ss(){
+
+    }
 }

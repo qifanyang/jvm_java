@@ -3,8 +3,10 @@ package vm.opcode;
 import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 import vm.parser.U2;
+import vm.parser.cp.*;
 import vm.runtime.RTClass;
 import vm.runtime.StackFrame;
+import vm.util.Pair;
 
 /**
  * @author yangqf
@@ -62,5 +64,31 @@ public abstract class OpcodeSupport implements Opcode{
     protected <T> T indexConstantPoolObject(RTClass rtClass, U2 index, Class<T> t){
         return indexConstantPoolObject(rtClass, index.value, t);
     }
+
+   protected Pair<String , String> getMethodInfo(StackFrame frame, ConstantMethodRefInfo methodRefInfo){
+       ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, methodRefInfo.getClass_index(), ConstantClassInfo.class);
+
+       ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
+
+       //准备构建方法名和方法描述符
+       ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, methodRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
+       String methodName = indexConstantPoolObject(frame, nameAndTypeInfo.getName_index(), ConstantUtf8Info.class).string();
+       String methodDescriptor = indexConstantPoolObject(frame, nameAndTypeInfo.getDescriptor_index(), ConstantUtf8Info.class).string();
+
+       return new Pair<>(methodName, methodDescriptor);
+   }
+
+    protected Pair<String , String> getMethodInfo(StackFrame frame, ConstantInterfaceMethodRefInfo  methodRefInfo){
+       ConstantClassInfo constantClassInfo = indexConstantPoolObject(frame, methodRefInfo.getClass_index(), ConstantClassInfo.class);
+
+       ConstantUtf8Info classNameUtf8Info = indexConstantPoolObject(frame, constantClassInfo.getName_index(), ConstantUtf8Info.class);
+
+       //准备构建方法名和方法描述符
+       ConstantNameAndTypeInfo nameAndTypeInfo = indexConstantPoolObject(frame, methodRefInfo.getName_and_type_index(), ConstantNameAndTypeInfo.class);
+       String methodName = indexConstantPoolObject(frame, nameAndTypeInfo.getName_index(), ConstantUtf8Info.class).string();
+       String methodDescriptor = indexConstantPoolObject(frame, nameAndTypeInfo.getDescriptor_index(), ConstantUtf8Info.class).string();
+
+       return new Pair<>(methodName, methodDescriptor);
+   }
 
 }

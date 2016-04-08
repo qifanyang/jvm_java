@@ -6,7 +6,7 @@ import vm.lib.Log;
  * @author yangqf
  * @version 1.0 2016/4/8
  */
-public class Son extends Father{
+public class Son extends Father implements FatherInterface{
 
     public void say(){
         Log.say("i am son ");
@@ -15,6 +15,10 @@ public class Son extends Father{
         privateSay();//私有方式使用invokespecial
     }
 
+//    @Override 静态方法没法重写, 静态方法叫类方法无法多态
+    public static void ss(){
+
+    }
     public void fatherSay(){
         Log.say("重写父类方法:fathersay");
     }
@@ -23,8 +27,16 @@ public class Son extends Father{
         Log.say("i am private method ");
     }
 
+    @Override
+    public void fi(){
+        Log.say("call father interface ...");
+    }
+
     public static void main(String[] args){
         Father son = new Son();
         son.say();
+        FatherInterface fi = new Son();
+        fi.fi();
+
     }
 }

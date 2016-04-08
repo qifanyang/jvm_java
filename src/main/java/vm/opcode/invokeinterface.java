@@ -1,6 +1,14 @@
 package vm.opcode;
 
+import vm.parser.MethodInfo;
+import vm.parser.cp.ConstantIntegerInfo;
+import vm.parser.cp.ConstantInterfaceMethodRefInfo;
+import vm.parser.cp.ConstantMethodRefInfo;
+import vm.runtime.RTObject;
 import vm.runtime.StackFrame;
+import vm.util.Pair;
+
+import java.util.LinkedList;
 
 /**
  * 调用接口方法,
@@ -29,6 +37,27 @@ public class invokeinterface extends OpcodeSupport{
     @Override
     public Object operate(StackFrame frame){
 
+        int operand = fetchOperand(frame, 2);
+        int count = fetchOperand(frame, 1);
+        int zero = fetchOperand(frame, 1);
+        ConstantInterfaceMethodRefInfo interfaceMethodRefInfo = indexConstantPoolObject(frame, operand, ConstantInterfaceMethodRefInfo.class);
+        Pair<String, String> pair = getMethodInfo(frame, interfaceMethodRefInfo);
+
+        LinkedList<Object> paraList = new LinkedList<>();
+        while(!frame.getOperands().isEmpty()){
+            paraList.addFirst(frame.getOperands().pop());
+        }
+        Object[] paraObjectsForCall = paraList.toArray(new Object[paraList.size()]);
+        RTObject rtObject = (RTObject) paraList.getFirst();
+
+        MethodInfo methodInfo = rtObject.getRtClass().searchRecursiveMethodInfo(pair.getFirst(), pair.getSecond());
+
+        StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
+        //方法调用,填充参数到新栈帧
+        //...objectref,x,y->
+        for(int i = 0; i < newFrame.getLocals().length; i++){
+            newFrame.getLocals()[i] = paraObjectsForCall[i];
+        }
         return null;
     }
 }

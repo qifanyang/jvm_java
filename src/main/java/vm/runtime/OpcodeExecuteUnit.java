@@ -43,6 +43,7 @@ public class OpcodeExecuteUnit{
         register(invokevirtual.class);
         register(invokespecial.class);
         register(invokestatic.class);
+        register(invokeinterface.class);
         register(returnreturn.class);
         register(ireturn.class);
         register(aload.class);
