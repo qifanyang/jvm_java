@@ -20,6 +20,7 @@ public class CodeAttribute extends AttributeInfoSupport{
     U4 code_length;
     U1 code[];
     U2 exception_table_length;
+    ExceptionTable exceptionTables[];
     //TODO 异常表
     /**
      * {
@@ -34,6 +35,13 @@ public class CodeAttribute extends AttributeInfoSupport{
 
     ClassFile cf;
 
+    static class ExceptionTable{
+        U2 start_pc;//包含
+        U2 end_pc;//不包含
+        U2 handler_pc;
+        U2 catch_type;
+    }
+
     public CodeAttribute(ClassFile cf){
         this.cf = cf;
     }
@@ -47,6 +55,17 @@ public class CodeAttribute extends AttributeInfoSupport{
         code = new U1[(int) code_length.value];
         reader.readBytes(code);
         exception_table_length = reader.readU2();
+        if(exception_table_length.value != 0){
+            exceptionTables = new ExceptionTable[exception_table_length.value];
+            for(int i = 0; i < exception_table_length.value; i++){
+                ExceptionTable exceptionTable = new ExceptionTable();
+                exceptionTable.start_pc = reader.readU2();
+                exceptionTable.end_pc = reader.readU2();
+                exceptionTable.handler_pc = reader.readU2();//要跳转到的pc位置
+                exceptionTable.catch_type = reader.readU2();//异常类型,指向常量池索引
+                exceptionTables[i] = exceptionTable;
+            }
+        }
         attribute_count = reader.readU2();
         attributes = new AttributeInfo[attribute_count.value];
         for(int i = 0; i < attribute_count.value; i++){
