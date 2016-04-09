@@ -21,15 +21,7 @@ public class CodeAttribute extends AttributeInfoSupport{
     U1 code[];
     U2 exception_table_length;
     ExceptionTable exceptionTables[];
-    //TODO 异常表
-    /**
-     * {
-     * u2 start_pc;
-     * u2 end_pc;
-     * u2 handler_pc;
-     * u2 catch_type;
-     * } exception_table[exception_table_length];
-     */
+
     U2 attribute_count;
     AttributeInfo attributes[];
 
@@ -40,6 +32,7 @@ public class CodeAttribute extends AttributeInfoSupport{
         U2 end_pc;//不包含
         U2 handler_pc;
         U2 catch_type;
+
     }
 
     public CodeAttribute(ClassFile cf){
@@ -64,6 +57,7 @@ public class CodeAttribute extends AttributeInfoSupport{
                 exceptionTable.handler_pc = reader.readU2();//要跳转到的pc位置
                 exceptionTable.catch_type = reader.readU2();//异常类型,指向常量池索引
                 exceptionTables[i] = exceptionTable;
+
             }
         }
         attribute_count = reader.readU2();
