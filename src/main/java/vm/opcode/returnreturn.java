@@ -1,5 +1,6 @@
 package vm.opcode;
 
+import vm.runtime.RTObject;
 import vm.runtime.StackFrame;
 
 /**
@@ -14,6 +15,10 @@ public class returnreturn extends OpcodeSupport{
 
     @Override
     public Object operate(StackFrame frame){
+        RTObject rtObject = (RTObject) frame.getLocals()[0];
+        if(rtObject != null){
+            rtObject.monitorExit();
+        }
         frame.getThreadStack().popStackFrame();
         //没有处理返回值
         return null;

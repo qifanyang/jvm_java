@@ -22,4 +22,10 @@ public class CommTest{
         VirtualMachine machine = new VirtualMachine();
         machine.run("source.Son");
     }
+
+    @Test
+    public void syncTest() throws Exception{
+        VirtualMachine machine = new VirtualMachine();
+        machine.run("source.Sync");
+    }
 }

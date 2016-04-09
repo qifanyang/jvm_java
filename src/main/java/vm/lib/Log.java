@@ -18,5 +18,6 @@ public class Log{
     public native void print(int i, String s);
 
     public static native void say(String s);
+    public static native void say(int s);
 
 }

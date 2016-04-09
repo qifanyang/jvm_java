@@ -96,6 +96,9 @@ public class invokevirtual extends OpcodeSupport{
                 e.printStackTrace();
             }
         }else {
+            if((accessFlag & 0x0020) != 0){//同步方法,需要自动执行monitor enter
+                refrence.monitorEnter();
+            }
             //methodInfo可能是从父类继承的, 所以RTClass也改变了
             StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
             //方法调用,填充参数到新栈帧

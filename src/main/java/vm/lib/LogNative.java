@@ -30,4 +30,8 @@ public class LogNative{
     public static void say(String s){
         System.out.println(s);
     }
+
+    public static void say(int s){
+        System.out.println(s);
+    }
 }

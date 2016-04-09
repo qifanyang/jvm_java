@@ -38,7 +38,9 @@ public class OpcodeExecuteUnit{
         register(iadd.class);
         register(bipush.class);
         register(getstatic.class);
+        register(getfield.class);
         register(putfield.class);
+        register(putstatic.class);
         register(newnew.class);
         register(invokevirtual.class);
         register(invokespecial.class);
@@ -66,7 +68,8 @@ public class OpcodeExecuteUnit{
         register(if_icmple.class);
         register(iinc.class);
         register(gotogoto.class);
-
+        register(monitorenter.class);
+        register(monitorenter.class);
        // System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
 
