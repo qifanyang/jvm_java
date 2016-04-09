@@ -64,6 +64,7 @@ public class CodeAttribute extends AttributeInfoSupport{
                 exceptionTable.handler_pc = reader.readU2();//要跳转到的pc位置
                 exceptionTable.catch_type = reader.readU2();//异常类型,指向常量池索引
                 exceptionTables[i] = exceptionTable;
+
             }
         }
         attribute_count = reader.readU2();
