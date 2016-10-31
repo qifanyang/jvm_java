@@ -32,7 +32,6 @@ public class CodeAttribute extends AttributeInfoSupport{
         U2 end_pc;//不包含
         U2 handler_pc;
         U2 catch_type;
-
     }
 
     public CodeAttribute(ClassFile cf){

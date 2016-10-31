@@ -67,6 +67,9 @@ public class AttributeInfo {
             case "Exceptions":
                 attributeObject = new ExceptionsAttribute();
                 break;
+            case "LocalVariableTypeTable":
+                attributeObject = new LocalVariableTypeTableAttribute();
+                break;
             default:
                 throw new IllegalStateException("不能处理的属性类型  :" + attributeName);
         }

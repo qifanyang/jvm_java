@@ -28,4 +28,10 @@ public class CommTest{
         VirtualMachine machine = new VirtualMachine();
         machine.run("source.Sync");
     }
+
+    @Test
+    public void genericTypeTest() throws Exception{
+        VirtualMachine machine = new VirtualMachine();
+        machine.run("source.GenericType");
+    }
 }

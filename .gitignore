@@ -1,6 +1,6 @@
 ### Java template
 target/classes/*
-
+rt/*
 # idea config
 .idea/*
 
