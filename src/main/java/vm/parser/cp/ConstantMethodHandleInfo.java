@@ -1,9 +1,6 @@
 package vm.parser.cp;
 
-import vm.parser.ClassFileReader;
-import vm.parser.ConstantPoolObject;
-import vm.parser.U1;
-import vm.parser.U2;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -16,7 +13,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantMethodHandleInfo implements ConstantPoolObject{
+public class ConstantMethodHandleInfo extends ConstantPoolObject{
     U1 tag = U1.of(15);
     /**
      * value must be in the range 1 to 9

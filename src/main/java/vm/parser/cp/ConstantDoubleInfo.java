@@ -1,5 +1,6 @@
 package vm.parser.cp;
 
+import vm.parser.ClassFileHolder;
 import vm.parser.ClassFileReader;
 import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
@@ -13,7 +14,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantDoubleInfo  implements ConstantPoolObject{
+public class ConstantDoubleInfo extends ConstantPoolObject{
     U1 tag = U1.of(6);
     U1 high_bytes[] = new U1[4];
     U1 low_bytes[] = new U1[4];

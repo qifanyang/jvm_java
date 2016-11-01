@@ -12,7 +12,7 @@ import java.io.UnsupportedEncodingException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantUtf8Info implements ConstantPoolObject{
+public class ConstantUtf8Info extends ConstantPoolObject{
     U1 tag = U1.of(1);
     U2 length;//bytes长度
     U1 bytes[];//utf8编码的字节数组

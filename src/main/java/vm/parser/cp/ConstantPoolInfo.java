@@ -17,7 +17,7 @@ public class ConstantPoolInfo {
     /**
      * 根据tag结合对应的常量池数据结构可以读取
      */
-    U1 info[];
+//    U1 info[];
     /**
      * 解析info[]出来的数据结构,{@link ConstantPoolObject}是所有常量池结构的父接口
      **/

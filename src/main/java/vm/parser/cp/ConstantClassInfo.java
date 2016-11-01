@@ -1,9 +1,6 @@
 package vm.parser.cp;
 
-import vm.parser.ClassFileReader;
-import vm.parser.ConstantPoolObject;
-import vm.parser.U1;
-import vm.parser.U2;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -14,7 +11,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantClassInfo implements ConstantPoolObject{
+public class ConstantClassInfo extends ConstantPoolObject{
     U1 tag = U1.of(7);//在cp_info中已经有tag, 所以这里的tag只可以确定
     U2 name_index;//常量池索引,指向constant_utf8_info
 

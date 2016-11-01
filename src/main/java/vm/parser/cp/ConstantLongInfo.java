@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantLongInfo implements ConstantPoolObject{
+public class ConstantLongInfo extends ConstantPoolObject{
     U1 tag = U1.of(5);
     U1 high_bytes[] = new U1[4];
     U1 low_bytes[] = new U1[4];

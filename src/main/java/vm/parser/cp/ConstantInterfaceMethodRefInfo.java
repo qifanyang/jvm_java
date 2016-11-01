@@ -1,9 +1,6 @@
 package vm.parser.cp;
 
-import vm.parser.ClassFileReader;
-import vm.parser.ConstantPoolObject;
-import vm.parser.U1;
-import vm.parser.U2;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -14,7 +11,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantInterfaceMethodRefInfo implements ConstantPoolObject{
+public class ConstantInterfaceMethodRefInfo extends ConstantPoolObject{
     U1 tag = U1.of(11);
     U2 class_index;
     U2 name_and_type_index;

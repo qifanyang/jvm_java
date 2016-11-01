@@ -1,9 +1,6 @@
 package vm.parser.cp;
 
-import vm.parser.ClassFileReader;
-import vm.parser.ConstantPoolObject;
-import vm.parser.U1;
-import vm.parser.U2;
+import vm.parser.*;
 
 import java.io.IOException;
 
@@ -14,7 +11,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantFieldrefInfo implements ConstantPoolObject{
+public class ConstantFieldrefInfo extends ConstantPoolObject{
     U1 tag = U1.of(9);
     U2 class_index;//指向常量池的索引,值类型ClassInfo
     U2 name_and_type_index;//指向常量池的索引,name_and_type_info

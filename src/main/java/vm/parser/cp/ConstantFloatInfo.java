@@ -1,5 +1,6 @@
 package vm.parser.cp;
 
+import vm.parser.ClassFileHolder;
 import vm.parser.ClassFileReader;
 import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
@@ -13,7 +14,7 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantFloatInfo  implements ConstantPoolObject{
+public class ConstantFloatInfo extends ConstantPoolObject{
     U1 tag = U1.of(4);
     U1 bytes[] = new U1[4];//Big-Endian
 

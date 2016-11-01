@@ -3,6 +3,7 @@ package vm.opcode;
 import vm.parser.attribute.BootstrapMethodsAttribute;
 import vm.parser.cp.ConstantInvokeDynamicInfo;
 import vm.parser.cp.ConstantMethodHandleInfo;
+import vm.parser.cp.ConstantMethodRefInfo;
 import vm.parser.cp.ConstantNameAndTypeInfo;
 import vm.runtime.StackFrame;
 import vm.util.AttributeUtil;
@@ -39,9 +40,27 @@ public class invokedynamic extends OpcodeSupport{
         BootstrapMethodsAttribute.BootstrapMethod bootstrapMethod = bootstrapMethods.getBootstrapMethods()[constantInvokeDynamicInfo.getBootstrap_method_attr_index().value];
         //类似构建MethodHandle和MethodType对象,拿到ConstantMethodHandle和参数
 
-        //类似MethodHandle
+        //类似java中的MethodHandle
         ConstantMethodHandleInfo constantMethodHandleInfo = indexConstantPoolObject(frame, bootstrapMethod.getBootstrap_method_ref(), ConstantMethodHandleInfo.class);
-        //获取参数
+        //reference_kind=6(REF_invokeStatic),the reference_index(CONSTANT_Methodref_info)
+        if(constantMethodHandleInfo.getReference_index().value == 6){
+            //bootstrapMethod指向的方法
+            ConstantMethodRefInfo constantMethodRefInfo = indexConstantPoolObject(frame, constantMethodHandleInfo.getReference_index(), ConstantMethodRefInfo.class);
+            //class_index 51 java/lang/invoke/LambdaMetafactory
+            //name_and_type_index 52 metafactory (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+        }
+        //执行方法调用,返回CallSite
+
+        //获取bootstrapMethod方法引用
+        //bootstrap_method_ref=27又是一个methodHandle ref_kind=6 ref_index=40
+        //method_ref class_index=51 java/lang/invoke/LambdaMetafactory
+        //name_and_type_index=52 name_index=55 metafactory (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+
+        //bootstrap_arguments
+        //28 MethodType ()V
+        //29 MethodHandle kind=6 MethodRef class_index=7(source/Lambda) name_and_type=53(lambda$main$0 ()V)
+        //28 MethodType ()V
+        //在bootstrap_arguments中完成对
         //根据methodHandle 信息执行方法调用
         System.out.println("");
         return null;

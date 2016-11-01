@@ -19,8 +19,8 @@ import java.io.IOException;
 @Setter
 @Getter
 public class BootstrapMethodsAttribute extends AttributeInfoSupport{
-    U2 attribute_name_index;
-    U4 attribute_length;
+//    U2 attribute_name_index;
+//    U4 attribute_length;
     U2 num_bootstrap_methods;//bootstrap method 数量
     BootstrapMethod[] bootstrapMethods;
     @Data

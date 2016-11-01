@@ -7,6 +7,6 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/3/28
  */
-public interface Parser extends ClassFileHolder{
+public interface Parser{
     void parse(ClassFileReader reader) throws IOException;
 }
