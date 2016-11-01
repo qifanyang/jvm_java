@@ -5,7 +5,7 @@ import vm.parser.cp.ConstantPoolInfo;
 import java.io.IOException;
 
 /**
- *
+ * java方法字节码数据结构
  * @author yangqf
  * @version 1.0 2016/3/26
  */

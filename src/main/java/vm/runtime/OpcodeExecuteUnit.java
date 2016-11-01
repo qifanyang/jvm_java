@@ -46,6 +46,7 @@ public class OpcodeExecuteUnit{
         register(invokespecial.class);
         register(invokestatic.class);
         register(invokeinterface.class);
+        register(invokedynamic.class);
         register(returnreturn.class);
         register(ireturn.class);
         register(aload.class);

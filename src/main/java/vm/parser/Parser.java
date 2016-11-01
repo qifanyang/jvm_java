@@ -8,5 +8,5 @@ import java.io.IOException;
  * @version 1.0 2016/3/28
  */
 public interface Parser extends ClassFileHolder{
-    public void parse(ClassFileReader reader) throws IOException;
+    void parse(ClassFileReader reader) throws IOException;
 }

@@ -5,7 +5,7 @@ import vm.parser.cp.ConstantPoolInfo;
 import vm.parser.cp.ConstantUtf8Info;
 
 /**
- *
+ * 被解释执行的字节码需要有main方法
  * @author yangqf
  * @version 1.0 2016/3/26
  */

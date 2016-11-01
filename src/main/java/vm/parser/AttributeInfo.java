@@ -46,6 +46,7 @@ public class AttributeInfo {
 
         AttributeInfoSupport attributeObject = null;
         switch (attributeName){
+            //field or method attribute
             case "Code":
                 attributeObject = new CodeAttribute(cf);
                 break;
@@ -70,6 +71,16 @@ public class AttributeInfo {
             case "LocalVariableTypeTable":
                 attributeObject = new LocalVariableTypeTableAttribute();
                 break;
+            //field or method attribute end +++++++++++++
+
+            //class file attribute from here ...
+            case "BootstrapMethods":
+                attributeObject = new BootstrapMethodsAttribute();
+                break;
+            case "InnerClasses":
+                attributeObject = new InnerClassesAttribute();
+                break;
+            //class file attribute end +++++++++++++
             default:
                 throw new IllegalStateException("不能处理的属性类型  :" + attributeName);
         }

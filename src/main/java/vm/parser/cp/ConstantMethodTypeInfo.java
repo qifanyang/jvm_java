@@ -8,7 +8,7 @@ import vm.parser.U2;
 import java.io.IOException;
 
 /**
- *表示方法类型,这里和name_and_type有点重复
+ *表示方法类型,这里和name_and_type有点重复,没有name_index
  * @author yangqf
  * @version 1.0 2016/3/26
  */

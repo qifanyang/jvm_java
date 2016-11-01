@@ -1,5 +1,6 @@
 package vm.parser;
 
+import vm.parser.attribute.BootstrapMethodsAttribute;
 import vm.parser.cp.ConstantPoolInfo;
 
 /**
