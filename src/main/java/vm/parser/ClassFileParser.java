@@ -216,9 +216,9 @@ public class ClassFileParser {
         try{
             File file = null;
             if(path.startsWith("java")){
-              file = new File(System.getProperty("user.dir") + "\\rt\\" + path + ".class").getCanonicalFile();
+              file = new File(System.getProperty("user.dir") + File.separator +"rt" + File.separator + path + ".class").getCanonicalFile();
             }else {
-              file = new File(System.getProperty("user.dir") + "\\target\\classes\\" + path + ".class").getCanonicalFile();
+              file = new File(System.getProperty("user.dir") + File.separator+"target"+File.separator+"classes"+File.separator + path + ".class").getCanonicalFile();
             }
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dataInput = new DataInputStream(fis);

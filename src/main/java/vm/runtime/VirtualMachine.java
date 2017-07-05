@@ -4,6 +4,8 @@ import vm.parser.*;
 import vm.parser.cp.ConstantPoolInfo;
 import vm.parser.cp.ConstantUtf8Info;
 
+import java.io.File;
+
 /**
  * 被解释执行的字节码需要有main方法
  * @author yangqf
@@ -54,7 +56,7 @@ public class VirtualMachine {
      * @throws Exception
      */
     public RTClass loadClass(String name) throws Exception{
-        String name1 = name.replace(".", "/");
+        String name1 = name.replace(".", File.separator);
         ClassFile classFile = ClassFileParser.load(name1);
         RTClass classRT = new RTClass();
         classRT.setClassFile(classFile);
