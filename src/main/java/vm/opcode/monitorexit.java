@@ -10,14 +10,14 @@ import java.util.Set;
  * @author yangqf
  * @version 1.0 2016/4/9
  */
-public class monitorexit extends OpcodeSupport{
+public class monitorexit extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 195;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
 
         RTObject rtObject = (RTObject) frame.getOperands().pop();
         rtObject.monitorExit();

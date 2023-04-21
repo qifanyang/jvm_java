@@ -18,14 +18,14 @@ import java.util.LinkedList;
  * @author yangqf
  * @version 1.0 2016/4/5
  */
-public class invokestatic extends OpcodeSupport{
+public class invokestatic extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 184;//b8
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);
 
         ConstantMethodRefInfo methodRefInfo = indexConstantPoolObject(frame, operand, ConstantMethodRefInfo.class);
@@ -45,39 +45,39 @@ public class invokestatic extends OpcodeSupport{
         MethodInfo methodInfo = rtClass.searchRecursiveMethodInfo(methodName, methodDescriptor);
 
         int accessFlag = methodInfo.getAccess_flags().value;
-        if((accessFlag & 0x0100) != 0){
+        if ((accessFlag & 0x0100) != 0) {
             //被调用的目标方法为本地方法,使用发射模拟本地方法调用
             String targetMethodClass = classNameUtf8Info.string();
             String targetMethodClassNative = targetMethodClass + "Native";
-            String replace = targetMethodClassNative.replace("/",".");
-            try{
+            String replace = targetMethodClassNative.replace("/", ".");
+            try {
                 Class<?> targetNativeCalss = Class.forName(replace);
                 //根据descriptor转换为对应class
                 Class<?>[] classes = DescriptorUtil.fromDescriptor(methodDescriptor);
                 Method targetMethod = targetNativeCalss.getDeclaredMethod(methodName, classes);
                 //调用方法之前已经把objectref和parameter压栈, 这里需要把所有参数都取出来
                 LinkedList<Object> paraList = new LinkedList<>();
-                while(!frame.getOperands().isEmpty()){
+                while (!frame.getOperands().isEmpty()) {
                     paraList.addFirst(frame.getOperands().pop());
                 }
 //                paraList.removeFirst();//remove objectref
                 Object[] paraObjects = paraList.toArray(new Object[paraList.size()]);
                 targetMethod.invoke(targetNativeCalss, paraObjects);
-            }catch(ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }catch(NoSuchMethodException e){
+            } catch (NoSuchMethodException e) {
                 e.printStackTrace();
-            }catch(InvocationTargetException e){
+            } catch (InvocationTargetException e) {
                 e.printStackTrace();
-            }catch(IllegalAccessException e){
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
 
             StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
             //方法调用,填充参数到新栈帧
             //...objectref,x,y->
-            for(int i = newFrame.getLocals().length - 1; i >= 0; i--){
+            for (int i = newFrame.getLocals().length - 1; i >= 0; i--) {
                 newFrame.getLocals()[i] = frame.getOperands().pop();
             }
 

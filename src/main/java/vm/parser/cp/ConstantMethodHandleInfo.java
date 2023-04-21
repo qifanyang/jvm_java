@@ -8,12 +8,13 @@ import java.io.IOException;
  * 表示方法句柄,用于实现类似函数指针的功能,jdk8
  * 如果kind为访问字段,那么index为指向constant_field_ref_info的索引
  * 如果kind为调用方法,那么index为指向constant_method_ref_info的索引
+ *
  * @author yangqf
  * @version 1.0 2016/3/26
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantMethodHandleInfo extends ConstantPoolObject{
+public class ConstantMethodHandleInfo extends ConstantPoolObject {
     U1 tag = U1.of(15);
     /**
      * value must be in the range 1 to 9

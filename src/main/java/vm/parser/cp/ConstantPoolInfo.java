@@ -4,7 +4,8 @@ import vm.parser.ConstantPoolObject;
 import vm.parser.U1;
 
 /**
- *常量池对象包装
+ * 常量池对象包装
+ *
  * @author yangqf
  * @version 1.0 2016/3/26
  */

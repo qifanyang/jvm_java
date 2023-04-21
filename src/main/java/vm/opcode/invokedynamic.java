@@ -15,14 +15,14 @@ import vm.util.AttributeUtil;
  * @author yangqf
  * @version 1.0 2016/10/31
  */
-public class invokedynamic extends OpcodeSupport{
+public class invokedynamic extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 186;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);
         fetchOperand(frame, 2);//第三个,第四个字节awayls equals zero, skip it
         ConstantInvokeDynamicInfo constantInvokeDynamicInfo = indexConstantPoolObject(frame, operand, ConstantInvokeDynamicInfo.class);
@@ -43,7 +43,7 @@ public class invokedynamic extends OpcodeSupport{
         //类似java中的MethodHandle
         ConstantMethodHandleInfo constantMethodHandleInfo = indexConstantPoolObject(frame, bootstrapMethod.getBootstrap_method_ref(), ConstantMethodHandleInfo.class);
         //reference_kind=6(REF_invokeStatic),the reference_index(CONSTANT_Methodref_info)
-        if(constantMethodHandleInfo.getReference_index().value == 6){
+        if (constantMethodHandleInfo.getReference_index().value == 6) {
             //bootstrapMethod指向的方法
             ConstantMethodRefInfo constantMethodRefInfo = indexConstantPoolObject(frame, constantMethodHandleInfo.getReference_index(), ConstantMethodRefInfo.class);
             //class_index 51 java/lang/invoke/LambdaMetafactory

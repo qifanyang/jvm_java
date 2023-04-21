@@ -11,21 +11,22 @@ import vm.util.Pair;
  * 没重入一次计数加1,如果另外一个线程已经拥有了该monitor,则当前线程被添加到monitor的wait set中,
  * 当拥有monitor的线程执行monitorexit , 知道monitor entry count 为0, wait set中的线程尝试获取
  * 该monitor
- *
+ * <p>
  * java提供了多种机制来实现线程间通讯,最基本的是使用synchronization method
  * 使用同步方法时,字节码中不会出现monitorenter指令, 因为虚拟机可以根据方法的access_flag自动执行monitorenter
  * 方法执行完毕时自动执行monitorexit, 要想看到字节码中的monitor指令使用synchronization(this){}
+ *
  * @author yangqf
  * @version 1.0 2016/4/9
  */
-public class monitorenter extends OpcodeSupport{
+public class monitorenter extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 194;//0xc2
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         //进入同步方法之前,先执行monitorenter获取monitor
         RTObject rtObject = (RTObject) frame.getOperands().pop();
         //因为invokevirtual 调用同步方法需要自动调用,所以放到RTObject中实现

@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 属性,种类有很多,比如code,InnerClasses, 在ClassFile,Field_info,method_info,和code_attribute都有使用
+ *
  * @author yangqf
  * @version 1.0 2016/3/26
  */
@@ -22,6 +23,7 @@ public class AttributeInfo {
     List<AttributeObject> attributes = new ArrayList<>();
     ClassFile cf;
     boolean isTop = true;//属性包含属性
+
     public void parse(ClassFileReader reader) throws IOException {
         attribute_name_index = reader.readU2();
         attribute_length = reader.readU4();
@@ -31,7 +33,7 @@ public class AttributeInfo {
         ConstantPoolInfo constantPoolInfo = cf.getConstant_pool_info()[attribute_name_index.value];
         ConstantPoolObject constantPoolObject = constantPoolInfo.getConstantPoolObject();
 
-        if(constantPoolInfo.getTag().value != 1){
+        if (constantPoolInfo.getTag().value != 1) {
             //jvm规定必须是constant_utf8_info
             throw new IllegalStateException("constant pool object must be a constant_utf8_info");
         }
@@ -45,7 +47,7 @@ public class AttributeInfo {
         String attributeName = utf8Info.string();
 
         AttributeInfoSupport attributeObject = null;
-        switch (attributeName){
+        switch (attributeName) {
             //field or method attribute
             case "Code":
                 attributeObject = new CodeAttribute(cf);

@@ -8,9 +8,9 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/4/7
  */
-public class ExceptionsAttribute extends AttributeInfoSupport{
+public class ExceptionsAttribute extends AttributeInfoSupport {
     @Override
-    public void parse(ClassFileReader reader) throws IOException{
+    public void parse(ClassFileReader reader) throws IOException {
         //skip
         reader.skip(attribute_length);
 

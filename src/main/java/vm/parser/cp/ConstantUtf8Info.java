@@ -6,13 +6,12 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
- *
  * @author yangqf
  * @version 1.0 2016/3/26
  */
 @lombok.Getter
 @lombok.Setter
-public class ConstantUtf8Info extends ConstantPoolObject{
+public class ConstantUtf8Info extends ConstantPoolObject {
     U1 tag = U1.of(1);
     U2 length;//bytes长度
     U1 bytes[];//utf8编码的字节数组
@@ -24,12 +23,12 @@ public class ConstantUtf8Info extends ConstantPoolObject{
         reader.readBytes(bytes);
     }
 
-    public String string(){
-        if(null == bytes || bytes.length == 0){
+    public String string() {
+        if (null == bytes || bytes.length == 0) {
             return "";
         }
         byte[] byteBytes = new byte[bytes.length];
-        for(int i = 0; i < bytes.length; i++){
+        for (int i = 0; i < bytes.length; i++) {
             byteBytes[i] = (byte) bytes[i].value;
         }
         try {

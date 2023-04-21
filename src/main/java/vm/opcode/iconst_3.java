@@ -6,14 +6,14 @@ import vm.runtime.StackFrame;
  * @author yangqf
  * @version 1.0 2016/4/5
  */
-public class iconst_3 extends OpcodeSupport{
+public class iconst_3 extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 6;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         frame.getOperands().push(3);
         return null;
     }

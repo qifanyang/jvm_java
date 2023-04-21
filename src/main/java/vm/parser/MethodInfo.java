@@ -6,6 +6,7 @@ import java.io.IOException;
 
 /**
  * java方法字节码数据结构
+ *
  * @author yangqf
  * @version 1.0 2016/3/26
  */
@@ -26,7 +27,7 @@ public class MethodInfo {
         descriptor_index = reader.readU2();
         attributes_count = reader.readU2();
         attributes = new AttributeInfo[attributes_count.value];
-        for(int i = 0; i < attributes_count.value; i++){
+        for (int i = 0; i < attributes_count.value; i++) {
             AttributeInfo attributeInfo = new AttributeInfo();
             attributeInfo.setCf(cf);
             attributeInfo.parse(reader);
@@ -35,7 +36,7 @@ public class MethodInfo {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         ConstantPoolInfo constantPoolInfo = cf.getConstant_pool_info()[name_index.value];
 

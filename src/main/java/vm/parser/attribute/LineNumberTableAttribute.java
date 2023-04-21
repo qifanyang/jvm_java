@@ -10,19 +10,20 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class LineNumberTableAttribute extends AttributeInfoSupport{
-//    U2 attribute_name_index;
+public class LineNumberTableAttribute extends AttributeInfoSupport {
+    //    U2 attribute_name_index;
 //    U4 attribute_length;
     U2 line_number_table_length;
     LineNumberTable line_number_table[];
 
     ClassFile cf;
-    public LineNumberTableAttribute(ClassFile cf){
+
+    public LineNumberTableAttribute(ClassFile cf) {
         this.cf = cf;
     }
 
     @lombok.Data
-    static class LineNumberTable{
+    static class LineNumberTable {
         U2 start_pc;
         U2 line_number;
     }
@@ -34,7 +35,7 @@ public class LineNumberTableAttribute extends AttributeInfoSupport{
         line_number_table_length = reader.readU2();
         line_number_table = new LineNumberTable[line_number_table_length.value];
 
-        for(int i = 0; i < line_number_table_length.value; i++){
+        for (int i = 0; i < line_number_table_length.value; i++) {
             LineNumberTable lineNumberTable = new LineNumberTable();
             lineNumberTable.setStart_pc(reader.readU2());
             lineNumberTable.setLine_number(reader.readU2());

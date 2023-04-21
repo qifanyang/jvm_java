@@ -29,7 +29,7 @@ public class StackFrame {
     private int jumpOffset;//跳转偏移量,当执行了跳转指令时该值被设定为偏移量,没有跳转的话值为0
     private int operandOffset;//指令操作数偏移量,相对于当前pc位置
 
-    public void init(MethodInfo methodInfo, ConstantPoolInfo[] constantPool, ThreadStack threadStack){
+    public void init(MethodInfo methodInfo, ConstantPoolInfo[] constantPool, ThreadStack threadStack) {
         this.constantPool = constantPool;
         this.methodInfo = methodInfo;
         this.threadStack = threadStack;
@@ -42,32 +42,33 @@ public class StackFrame {
         code = codeAttributes.getCode();
     }
 
-    public void show(){
+    public void show() {
         System.out.println("-------StackFrame-----------");
         System.out.println("pc = " + pc);
         System.out.println("opcode = " + currentOpcode);
         System.out.println("local variable :");
-        for(Object o : locals){
+        for (Object o : locals) {
             System.out.println(o);
         }
         System.out.println("operands :");
-        for(Iterator<Object> iterator = operands.iterator(); iterator.hasNext();){
+        for (Iterator<Object> iterator = operands.iterator(); iterator.hasNext(); ) {
             Object next = iterator.next();
             System.out.println(next);
         }
         System.out.println("----------------------------");
     }
 
-    public void setPc(int pc){
+    public void setPc(int pc) {
         this.pc = pc;
         this.threadStack.setPc(pc);
     }
 
     /**
      * 跳转指令会修改该值,字节码执行单元不会按1+操作数个数增加pc值
+     *
      * @param offset
      */
-    public void jumpOffset(int offset){
+    public void jumpOffset(int offset) {
         this.jumpOffset = offset;
     }
 

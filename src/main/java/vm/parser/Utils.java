@@ -1,7 +1,6 @@
 package vm.parser;
 
 /**
- *
  * @author yangqf
  * @version 1.0 2016/3/26
  */

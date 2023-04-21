@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * 调用对象所属类中的方法(包括从父类中继承的),操作数为常量池索引,对应的数据结构为MethodRef,因为当前ClassFile中methodInfo[]没有包含
  * 父类的methodInfo,所以invokevirtual会有一个向上递归查找的过程,(虚方法表可以用来优化)
  * 先将引用压入操作数栈,再压入参数, 然后执行方法调用, 在执行该指令的时候,操作数栈中参数已经准备好了,注意方法调用参数顺序
- *
+ * <p>
  * 当父类引用指向子类对象,调用方法的方法引用是指向父类的, invokevirtual #4                  // Method source/Father.say:()V
  * 不能根据操作数指向的methodref查找方法,应该根据当前objectref去查找对应的class
  * 为什么对象是son可以编译器却要使用father的方法签名?
@@ -26,21 +26,21 @@ import java.util.LinkedList;
  * @author yangqf
  * @version 1.0 2016/4/3
  */
-public class invokevirtual extends OpcodeSupport{
+public class invokevirtual extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 182;
     }
 
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);
 
         //动态绑定,要根据对象的reference来确定RTClass
         //从当前栈帧中取出参数
         LinkedList<Object> paraList = new LinkedList<>();
-        while(!frame.getOperands().isEmpty()){
+        while (!frame.getOperands().isEmpty()) {
             paraList.addFirst(frame.getOperands().pop());
         }
         Object[] paraObjectsForCall = paraList.toArray(new Object[paraList.size()]);
@@ -68,12 +68,12 @@ public class invokevirtual extends OpcodeSupport{
         MethodInfo methodInfo = rtClass.searchRecursiveMethodInfo(methodName, methodDescriptor);
 
         int accessFlag = methodInfo.getAccess_flags().value;
-        if((accessFlag & 0x0100) != 0){
+        if ((accessFlag & 0x0100) != 0) {
             //被调用的目标方法为本地方法,使用发射模拟本地方法调用
             String targetMethodClass = classNameUtf8Info.string();
             String targetMethodClassNative = targetMethodClass + "Native";
-            String replace = targetMethodClassNative.replace("/",".");
-            try{
+            String replace = targetMethodClassNative.replace("/", ".");
+            try {
                 Class<?> targetNativeCalss = Class.forName(replace);
                 //根据descriptor转换为对应class
                 Class<?>[] classes = DescriptorUtil.fromDescriptor(methodDescriptor);
@@ -86,24 +86,24 @@ public class invokevirtual extends OpcodeSupport{
 //                paraList.removeFirst();//remove objectref
 //                Object[] paraObjects = paraList.toArray(new Object[paraList.size()]);
                 targetMethod.invoke(targetNativeCalss, paraObjectsForReflectCall);
-            }catch(ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }catch(NoSuchMethodException e){
+            } catch (NoSuchMethodException e) {
                 e.printStackTrace();
-            }catch(InvocationTargetException e){
+            } catch (InvocationTargetException e) {
                 e.printStackTrace();
-            }catch(IllegalAccessException e){
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-        }else {
-            if((accessFlag & 0x0020) != 0){//同步方法,需要自动执行monitor enter
+        } else {
+            if ((accessFlag & 0x0020) != 0) {//同步方法,需要自动执行monitor enter
                 refrence.monitorEnter();
             }
             //methodInfo可能是从父类继承的, 所以RTClass也改变了
             StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
             //方法调用,填充参数到新栈帧
             //...objectref,x,y->
-            for(int i = 0; i < newFrame.getLocals().length; i++){
+            for (int i = 0; i < newFrame.getLocals().length; i++) {
                 newFrame.getLocals()[i] = paraObjectsForCall[i];
             }
 

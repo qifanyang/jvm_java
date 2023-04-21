@@ -11,10 +11,12 @@ public enum AttributeNameEnum {
     SourceFile("SourceFile");
 
     private String name;
-    private AttributeNameEnum(String name){
+
+    private AttributeNameEnum(String name) {
         this.name = name;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 }

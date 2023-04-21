@@ -12,17 +12,19 @@ import java.io.IOException;
  */
 @lombok.Getter
 @lombok.Setter
-public class StackMapTableAttribute extends AttributeInfoSupport{
-//    U2 attribute_name_index;
+public class StackMapTableAttribute extends AttributeInfoSupport {
+    //    U2 attribute_name_index;
 //    U4 attribute_length;
     U2 number_of_entries;
     StackMapFrame entries[];
-    static class StackMapFrame{
+
+    static class StackMapFrame {
 
     }
+
     @Override
-    public void parse(ClassFileReader reader) throws IOException{
-            //跳过,暂时不处理
-            reader.skip(attribute_length);
+    public void parse(ClassFileReader reader) throws IOException {
+        //跳过,暂时不处理
+        reader.skip(attribute_length);
     }
 }

@@ -11,11 +11,11 @@ import java.io.IOException;
  */
 @lombok.Setter
 @lombok.Getter
-public class SignatureAttribute extends AttributeInfoSupport{
+public class SignatureAttribute extends AttributeInfoSupport {
     U2 signature_index;
 
     @Override
-    public void parse(ClassFileReader reader) throws IOException{
+    public void parse(ClassFileReader reader) throws IOException {
         signature_index = reader.readU2();
     }
 }

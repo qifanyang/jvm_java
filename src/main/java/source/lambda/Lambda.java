@@ -1,14 +1,12 @@
-package source;
-
-import java.util.Objects;
+package source.lambda;
 
 /**
  * @author yangqf
  * @version 1.0 2016/10/31
  */
-public class Lambda{
+public class Lambda {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //invokedynamic 返回一个调用点CallSite, name_and_type为 run ()Ljava/lang/runnable
         //所以为函数接口 , lambda表达式创建函数接口对象,该对象实现该接口,然后执行接口调用就执行lambda表达式
         Runnable runnable = () -> System.out.println("i am runnable function interface");

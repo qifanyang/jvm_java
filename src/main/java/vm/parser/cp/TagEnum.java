@@ -4,6 +4,7 @@ import vm.parser.U1;
 
 /**
  * 常量池tag枚举
+ *
  * @author yangqf
  * @version 1.0 2016/3/28
  */
@@ -25,11 +26,12 @@ public enum TagEnum {
 
 
     private U1 value;
+
     private TagEnum(int value) {
         this.value = U1.of(value);
     }
 
-    public U1 getValue(){
+    public U1 getValue() {
         return value;
     }
 }

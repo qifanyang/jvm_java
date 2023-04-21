@@ -11,17 +11,18 @@ import vm.runtime.StackFrame;
 
 /**
  * 静态字段设值
+ *
  * @author yangqf
  * @version 1.0 2016/4/9
  */
-public class putstatic extends OpcodeSupport{
+public class putstatic extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 179;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);//fieldref
         ConstantFieldrefInfo constantFieldrefInfo = indexConstantPoolObject(frame, operand, ConstantFieldrefInfo.class);
 

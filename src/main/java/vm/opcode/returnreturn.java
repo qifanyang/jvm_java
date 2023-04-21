@@ -7,16 +7,16 @@ import vm.runtime.StackFrame;
  * @author yangqf
  * @version 1.0 2016/4/4
  */
-public class returnreturn extends OpcodeSupport{
+public class returnreturn extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 177;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         RTObject rtObject = (RTObject) frame.getLocals()[0];
-        if(rtObject != null){
+        if (rtObject != null) {
             rtObject.monitorExit();
         }
         frame.getThreadStack().popStackFrame();

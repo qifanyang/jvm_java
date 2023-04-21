@@ -16,14 +16,14 @@ import vm.runtime.StackFrame;
  * @author yangqf
  * @version 1.0 2016/4/4
  */
-public class putfield extends OpcodeSupport{
+public class putfield extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 181;//0xb5
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);//fieldref
         ConstantFieldrefInfo constantFieldrefInfo = indexConstantPoolObject(frame, operand, ConstantFieldrefInfo.class);
 

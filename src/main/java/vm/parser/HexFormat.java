@@ -2,6 +2,7 @@ package vm.parser;
 
 /**
  * 用于解析class文件调试,输出十六进制,
+ *
  * @author yangqf
  * @version 1.0 2016/3/27
  */
@@ -15,15 +16,16 @@ public class HexFormat {
 
     /**
      * 格式化输出无符号byte,截取低8位
+     *
      * @param s
      */
-    public void formatU1(int s){
+    public void formatU1(int s) {
 //        byte high = (byte) ((s & 0xF0) >> 8);
         short b = (short) (s & 0xFF);
         format();
         String hexString = Integer.toHexString(b).toUpperCase();
-        if(hexString.length() == 1){
-            hexString = "0"+hexString;
+        if (hexString.length() == 1) {
+            hexString = "0" + hexString;
         }
         System.out.print(hexString);
         offset++;
@@ -31,9 +33,10 @@ public class HexFormat {
 
     /**
      * 格式化输出无符号short,截取低16位
+     *
      * @param u2
      */
-    public void formatU2(U2 u2){
+    public void formatU2(U2 u2) {
         int i = u2.value;
         short high = (short) ((i & 0xFF00) >> 8);
         short low = (short) (i & 0xFF);
@@ -41,7 +44,7 @@ public class HexFormat {
         formatU1(low);
     }
 
-    public void formatU4(U4 u4){
+    public void formatU4(U4 u4) {
         long i = u4.value;
         int high = (int) ((i & 0xFFFF0000) >> 16);//
         int low = (int) (i & 0xFFFF);
@@ -49,14 +52,14 @@ public class HexFormat {
         formatU2(U2.of(low));
     }
 
-    public void format(int[] bytes){
-        for(int b : bytes){
+    public void format(int[] bytes) {
+        for (int b : bytes) {
             formatU1(b);
         }
     }
 
-    private void pauseConvert(){
-        if(shouldPause){
+    private void pauseConvert() {
+        if (shouldPause) {
             try {
                 Thread.sleep(pause);
             } catch (InterruptedException e) {
@@ -66,11 +69,11 @@ public class HexFormat {
         shouldPause = !shouldPause;
     }
 
-    private void format(){
-        if(offset % 16 == 0){
+    private void format() {
+        if (offset % 16 == 0) {
             System.out.println();
             System.out.print(" ");
-        }else {
+        } else {
             System.out.print(" ");
         }
     }

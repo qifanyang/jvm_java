@@ -1,18 +1,17 @@
-package source;
-
-import java.util.ArrayList;
+package source.genericity;
 
 /**
  * @author yangqf
  * @version 1.0 2016/4/15
  */
-public class GenericType<T,C>{
+public class GenericType<T, C> {
     T t;//字节码中存储的是Object, 所以可以调用Object的所有方法
-    
-    public GenericType(){
+
+    public GenericType() {
         Class<?> aClass = t.getClass();
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         //和不适用泛型字节码一样的,只有在使用的时候字节码会强转,这里这么写应该是用于编译器生成强转字节码
         GenericType<Integer, Integer> tt = new GenericType<>();
         tt.t = 5;

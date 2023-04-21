@@ -6,14 +6,15 @@ import java.io.IOException;
 
 /**
  * 用于存储字节码的属性,读取字节码时,忽略最开始的6字节
+ *
  * @author yangqf
  * @version 1.0 2016/3/27
  */
 
 @lombok.Getter
 @lombok.Setter
-public class CodeAttribute extends AttributeInfoSupport{
-//    U2 attribute_name_index;
+public class CodeAttribute extends AttributeInfoSupport {
+    //    U2 attribute_name_index;
 //    U4 attribute_length;
     U2 max_stack;
     U2 max_locals;
@@ -27,16 +28,17 @@ public class CodeAttribute extends AttributeInfoSupport{
 
     ClassFile cf;
 
-    static class ExceptionTable{
+    static class ExceptionTable {
         U2 start_pc;//包含
         U2 end_pc;//不包含
         U2 handler_pc;
         U2 catch_type;
     }
 
-    public CodeAttribute(ClassFile cf){
+    public CodeAttribute(ClassFile cf) {
         this.cf = cf;
     }
+
     @Override
     public void parse(ClassFileReader reader) throws IOException {
 //        attribute_name_index = reader.readU2();
@@ -47,9 +49,9 @@ public class CodeAttribute extends AttributeInfoSupport{
         code = new U1[(int) code_length.value];
         reader.readBytes(code);
         exception_table_length = reader.readU2();
-        if(exception_table_length.value != 0){
+        if (exception_table_length.value != 0) {
             exceptionTables = new ExceptionTable[exception_table_length.value];
-            for(int i = 0; i < exception_table_length.value; i++){
+            for (int i = 0; i < exception_table_length.value; i++) {
                 ExceptionTable exceptionTable = new ExceptionTable();
                 exceptionTable.start_pc = reader.readU2();
                 exceptionTable.end_pc = reader.readU2();
@@ -61,7 +63,7 @@ public class CodeAttribute extends AttributeInfoSupport{
         }
         attribute_count = reader.readU2();
         attributes = new AttributeInfo[attribute_count.value];
-        for(int i = 0; i < attribute_count.value; i++){
+        for (int i = 0; i < attribute_count.value; i++) {
             AttributeInfo attributeInfo = new AttributeInfo();
             attributeInfo.setCf(cf);
             attributeInfo.parse(reader);

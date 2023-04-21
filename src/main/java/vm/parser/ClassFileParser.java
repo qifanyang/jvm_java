@@ -13,6 +13,7 @@ import java.io.*;
 public class ClassFileParser {
     private ClassFile cf;
     private ClassFileReader reader;
+
     public ClassFileParser(DataInputStream dataInput) {
         cf = new ClassFile();
         reader = new ClassFileReader(dataInput);
@@ -58,11 +59,11 @@ public class ClassFileParser {
         cf.setConstant_pool_info(new ConstantPoolInfo[constant_pool_count.value + 1]);
         ConstantPoolInfo[] constant_pool_info = cf.getConstant_pool_info();
         //常量池的索引范围是1至constant_pool_count−1
-        for(int i = 1; i < constant_pool_count.value; i++){
+        for (int i = 1; i < constant_pool_count.value; i++) {
             ConstantPoolInfo cpInfo = new ConstantPoolInfo();
             ConstantPoolObject constantPoolObject = null;
             U1 tag = reader.readU1();//常量池tag
-            switch (tag.value){
+            switch (tag.value) {
                 case 1:
                     //constant_utf8_info
                     constantPoolObject = new ConstantUtf8Info();
@@ -143,7 +144,7 @@ public class ClassFileParser {
         cf.setThis_class(reader.readU2());
     }
 
-     public void superClass() throws IOException {
+    public void superClass() throws IOException {
         cf.setSuper_class(reader.readU2());
     }
 
@@ -154,8 +155,8 @@ public class ClassFileParser {
     public void interfaces() throws IOException {
         interfacesCount();
         U2 interfaces_count = cf.getInterfaces_count();
-        U2 interfaces[] =new U2[interfaces_count.value];
-        for(int i = 0; i < interfaces_count.value; i++){
+        U2 interfaces[] = new U2[interfaces_count.value];
+        for (int i = 0; i < interfaces_count.value; i++) {
             interfaces[i] = reader.readU2();
         }
         cf.setInterfaces(interfaces);
@@ -170,7 +171,7 @@ public class ClassFileParser {
         U2 fields_count = cf.getFields_count();
         FieldInfo fields[] = new FieldInfo[fields_count.value];
         cf.setFields(fields);
-        for(int i = 0; i < fields_count.value; i++) {
+        for (int i = 0; i < fields_count.value; i++) {
             FieldInfo fieldInfo = new FieldInfo();
             fieldInfo.parse(reader);
             fields[i] = fieldInfo;
@@ -186,7 +187,7 @@ public class ClassFileParser {
         U2 methods_count = cf.getMethods_count();
         MethodInfo methods[] = new MethodInfo[methods_count.value];
         cf.setMethods(methods);
-        for(int i = 0; i < methods_count.value; i++){
+        for (int i = 0; i < methods_count.value; i++) {
             MethodInfo methodInfo = new MethodInfo();
             methodInfo.setCf(cf);
             methodInfo.parse(reader);
@@ -204,7 +205,7 @@ public class ClassFileParser {
         AttributeInfo attributes[] = new AttributeInfo[attributes_count.value];
         cf.setAttributes(attributes);
 
-        for(int i = 0; i < attributes_count.value; i++){
+        for (int i = 0; i < attributes_count.value; i++) {
             AttributeInfo attributeInfo = new AttributeInfo();
             attributeInfo.setCf(cf);
             attributeInfo.parse(reader);
@@ -212,25 +213,26 @@ public class ClassFileParser {
         }
     }
 
-    public static ClassFile load(String path){
-        try{
+    public static ClassFile load(String path) {
+        try {
             File file = null;
-            if(path.startsWith("java")){
-              file = new File(System.getProperty("user.dir") + File.separator +"rt" + File.separator + path + ".class").getCanonicalFile();
-            }else {
-              file = new File(System.getProperty("user.dir") + File.separator+"target"+File.separator+"classes"+File.separator + path + ".class").getCanonicalFile();
+            if (path.startsWith("java")) {
+                file = new File(System.getProperty("user.dir") + File.separator + "rt" + File.separator + path + ".class").getCanonicalFile();
+            } else {
+                file = new File(System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes" + File.separator + path + ".class").getCanonicalFile();
             }
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dataInput = new DataInputStream(fis);
             ClassFileParser parser = new ClassFileParser(dataInput);
             parser.parse();
             return parser.cf;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             new IllegalStateException("加载类失败, url =" + path);
         }
-        throw  new IllegalStateException("加载类失败, url =" + path);
+        throw new IllegalStateException("加载类失败, url =" + path);
     }
+
     public static void main(String[] args) throws Exception {
 //        InputStream in = ClassFileParser.class.getClassLoader().getResourceAsStream("");
         File file = new File(System.getProperty("user.dir") + "\\target\\classes\\test\\source\\A.class").getCanonicalFile();
@@ -241,11 +243,11 @@ public class ClassFileParser {
         parser.parse();
         System.out.println();
 //        System.out.println(parser.reader.position());
-        System.out.println("字段数量 = "+ parser.cf.getFields_count());
+        System.out.println("字段数量 = " + parser.cf.getFields_count());
         System.out.println("方法数量 = " + parser.cf.getMethods_count());
         MethodInfo[] methods = parser.cf.getMethods();
-        for(MethodInfo methodInfo : methods){
-            ConstantUtf8Info info = (ConstantUtf8Info)parser.cf.getConstant_pool_info()[methodInfo.name_index.value].getConstantPoolObject();
+        for (MethodInfo methodInfo : methods) {
+            ConstantUtf8Info info = (ConstantUtf8Info) parser.cf.getConstant_pool_info()[methodInfo.name_index.value].getConstantPoolObject();
             System.out.println(info.string());
         }
     }

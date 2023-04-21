@@ -7,10 +7,10 @@ import vm.runtime.VirtualMachine;
  * @author yangqf
  * @version 1.0 2016/4/7
  */
-public class HanZiTest{
+public class HanZiTest {
 
     @Test
-    public void testHanZi() throws Exception{
+    public void testHanZi() throws Exception {
         VirtualMachine machine = new VirtualMachine();
 
         machine.run("source.HanZi");

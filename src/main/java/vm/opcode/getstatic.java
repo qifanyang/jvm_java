@@ -11,25 +11,26 @@ import vm.runtime.StackFrame;
  * 根据接下来的两个字节的操作数,计算出常量池索引位置,在常量池中的数据结构应该是一个
  * Fieldref,包含了名字和描述符,然后可以根据名字和描述符解析改字段,定位到该字段的直接
  * 引用,并将该值压入操作数栈中
- *
+ * <p>
  * 类的静态字段在类加载时就可以在方法区中分配,所以在解析类的class的时候,应该分析类静态字段并
  * 分配
+ *
  * @author yangqf
  * @version 1.0 2016/4/2
  */
-public class getstatic extends OpcodeSupport{
+public class getstatic extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 178;
     }
 
     @Override
-    public int operandNum(){
+    public int operandNum() {
         return 2;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         //getstatic 有操作数, 紧接着的两个byte
 //        int pc = frame.getThreadStack().getPc();//goto pc实现跳转
 //        U1 b1 = frame.getCode()[pc];

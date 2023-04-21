@@ -13,19 +13,21 @@ import java.io.IOException;
 
 /**
  * invokedynamic指令数量越多,这个属性长度就越长
+ *
  * @author yangqf
  * @version 1.0 2016/10/31
  */
 @Setter
 @Getter
-public class BootstrapMethodsAttribute extends AttributeInfoSupport{
-//    U2 attribute_name_index;
+public class BootstrapMethodsAttribute extends AttributeInfoSupport {
+    //    U2 attribute_name_index;
 //    U4 attribute_length;
     U2 num_bootstrap_methods;//bootstrap method 数量
     BootstrapMethod[] bootstrapMethods;
+
     @Data
     @NoArgsConstructor
-    public static class BootstrapMethod implements Parser{
+    public static class BootstrapMethod implements Parser {
         /**
          * index constant pool item is CONSTANT_MethodHandle_info
          * 更加通用的方法引用,用来完成方法调用,赋值等
@@ -38,11 +40,11 @@ public class BootstrapMethodsAttribute extends AttributeInfoSupport{
         U2 bootstrap_arguments[];
 
         @Override
-        public void parse(ClassFileReader reader) throws IOException{
+        public void parse(ClassFileReader reader) throws IOException {
             this.bootstrap_method_ref = reader.readU2();
             this.num_bootstrap_arguments = reader.readU2();
             this.bootstrap_arguments = new U2[num_bootstrap_arguments.value];
-            for(int j = 0; j < this.num_bootstrap_arguments.value; j++){
+            for (int j = 0; j < this.num_bootstrap_arguments.value; j++) {
                 this.bootstrap_arguments[j] = reader.readU2();
             }
         }
@@ -57,10 +59,10 @@ public class BootstrapMethodsAttribute extends AttributeInfoSupport{
 //        u2 bootstrap_arguments[num_bootstrap_arguments];
 //    } bootstrap_methods[num_bootstrap_methods];
     @Override
-    public void parse(ClassFileReader reader) throws IOException{
+    public void parse(ClassFileReader reader) throws IOException {
         num_bootstrap_methods = reader.readU2();
         bootstrapMethods = new BootstrapMethod[num_bootstrap_methods.value];
-        for(int i = 0; i < num_bootstrap_methods.value; i++){
+        for (int i = 0; i < num_bootstrap_methods.value; i++) {
             bootstrapMethods[i] = new BootstrapMethod();
             bootstrapMethods[i].parse(reader);
         }

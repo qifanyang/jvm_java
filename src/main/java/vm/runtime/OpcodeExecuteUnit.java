@@ -9,10 +9,11 @@ import java.util.Map;
 
 /**
  * 字节码执行
+ *
  * @author yangqf
  * @version 1.0 2016/4/2
  */
-public class OpcodeExecuteUnit{
+public class OpcodeExecuteUnit {
 
     private static Map<Integer, Opcode> opcodeMap = new HashMap<>();
 
@@ -71,57 +72,57 @@ public class OpcodeExecuteUnit{
         register(gotogoto.class);
         register(monitorenter.class);
         register(monitorenter.class);
-       // System.out.println("完成字节码指令数量 :" + opcodeMap.size());
+        // System.out.println("完成字节码指令数量 :" + opcodeMap.size());
     }
 
-    public static void register(Class<? extends Opcode> opcode){
-        try{
+    public static void register(Class<? extends Opcode> opcode) {
+        try {
             Opcode oo = opcode.newInstance();
             opcodeMap.put(oo.opcode(), oo);
-        }catch(InstantiationException e){
+        } catch (InstantiationException e) {
             e.printStackTrace();
-        }catch(IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void execute(StackFrame frame){
+    public static void execute(StackFrame frame) {
 //        System.out.println("执行方法:"+frame.getMethodInfo());
 
         U1[] code = frame.getCode();
         int pc = frame.getThreadStack().getPc();
         //这里要完成执行环境切换
-        while(pc < code.length){
+        while (pc < code.length) {
             U1 u1 = code[pc];
             Opcode opcode = opcodeMap.get(u1.value);
-            if(opcode == null){
+            if (opcode == null) {
                 throw new IllegalStateException("非法字节码 , opcode = " + u1.value);
-            }else{
+            } else {
                 //执行指令前先修改pc到下一指令,
                 //对于有操作数的opcode,在读取操作数的时候修改pc
                 //operate中有跳转指令,会直接修改pc值到目标pc offset,所以不能再operate方法之后修改pc
                 frame.setCurrentOpcode(opcode);
                 opcode.operate(frame);
             }
-            if(frame.getJumpOffset() == 0){
+            if (frame.getJumpOffset() == 0) {
                 //没有跳转
                 ++pc;//指令自增
                 frame.setPc(pc + frame.getOperandOffset());
-            }else {
+            } else {
                 frame.setPc(pc + frame.getOperandOffset());
             }
             frame.setJumpOffset(0);
             frame.setOperandOffset(0);
             //检查当前帧是否切换,发生方法调用,当前帧改变,pc改变, 线程栈中的栈帧没有了,退出main方法
-            if(frame.getThreadStack().getCurrentFrame() == null){
+            if (frame.getThreadStack().getCurrentFrame() == null) {
                 break;
-            }else if(frame != frame.getThreadStack().getCurrentFrame()){
+            } else if (frame != frame.getThreadStack().getCurrentFrame()) {
                 code = frame.getThreadStack().getCurrentFrame().getCode();
                 pc = frame.getThreadStack().getCurrentFrame().getPc();
                 frame.getThreadStack().setPc(pc);
                 frame = frame.getThreadStack().getCurrentFrame();
-            }else{
+            } else {
                 pc = frame.getPc();
             }
             //调试

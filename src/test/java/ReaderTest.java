@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class ReaderTest {
     @Test
-    public void testReadU4(){
+    public void testReadU4() {
 //        -2
 //        1000...10(原码) 符号位+值二进制
 //        1111...01(反码) 符号位不变+值二进制取反
@@ -21,16 +21,16 @@ public class ReaderTest {
 
         int i = 128;
         System.out.println(Integer.toBinaryString(i));
-        System.out.println((byte)i);
-        i = (byte)i;
+        System.out.println((byte) i);
+        i = (byte) i;
         System.out.println(Integer.toBinaryString(i));
         System.out.println(i);
         i = 1;
         System.out.println(Integer.toBinaryString(i));
-        System.out.println((byte)i);
+        System.out.println((byte) i);
         i = -2;
         System.out.println(Integer.toBinaryString(i));
-        System.out.println((byte)i);
+        System.out.println((byte) i);
 
         System.out.println(Integer.MAX_VALUE);
         long x = 4294967296L;
@@ -40,14 +40,14 @@ public class ReaderTest {
         int y = (int) x;// 00 00 00 00 ff ff ff ff
         System.out.println(y);
 
-        try{
+        try {
             DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("D:/xxx"));
-            dataOutputStream.writeByte((byte)-2);//负数存储fe, 带符号扩展fffffffe, int 的值依然为-2
+            dataOutputStream.writeByte((byte) -2);//负数存储fe, 带符号扩展fffffffe, int 的值依然为-2
             dataOutputStream.flush();
             dataOutputStream.close();
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

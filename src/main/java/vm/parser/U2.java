@@ -7,7 +7,7 @@ package vm.parser;
 public class U2 {
     public int value;
 
-    public static U2 of(int value){
+    public static U2 of(int value) {
         U2 u2 = new U2();
         u2.value = value;
         return u2;
@@ -15,6 +15,6 @@ public class U2 {
 
     @Override
     public String toString() {
-        return ""+value;
+        return "" + value;
     }
 }

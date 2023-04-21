@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class MainLoader {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         VirtualMachine machine = new VirtualMachine();
 
 //        machine.run("java.lang.Object");
@@ -16,7 +16,6 @@ public class MainLoader {
         machine.run("source.HanZi");
 
     }
-
 
 
 }

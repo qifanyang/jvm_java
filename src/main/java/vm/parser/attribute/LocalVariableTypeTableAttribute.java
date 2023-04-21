@@ -8,10 +8,10 @@ import java.io.IOException;
  * @author yangqf
  * @version 1.0 2016/4/15
  */
-public class LocalVariableTypeTableAttribute extends AttributeInfoSupport{
+public class LocalVariableTypeTableAttribute extends AttributeInfoSupport {
 
     @Override
-    public void parse(ClassFileReader reader) throws IOException{
-            reader.skip(getAttribute_length());
+    public void parse(ClassFileReader reader) throws IOException {
+        reader.skip(getAttribute_length());
     }
 }

@@ -3,7 +3,6 @@ package vm.parser;
 import java.io.IOException;
 
 /**
- *
  * @author yangqf
  * @version 1.0 2016/3/26
  */
@@ -22,7 +21,7 @@ public class FieldInfo {
         descriptor_index = reader.readU2();
         attributes_count = reader.readU2();
         attributes = new AttributeInfo[attributes_count.value];
-        for(int i = 0; i < attributes_count.value; i++){
+        for (int i = 0; i < attributes_count.value; i++) {
             AttributeInfo attributeInfo = new AttributeInfo();
             attributeInfo.parse(reader);
             attributes[i] = attributeInfo;

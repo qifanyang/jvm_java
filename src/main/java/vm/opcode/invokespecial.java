@@ -11,22 +11,21 @@ import vm.runtime.StackFrame;
  * invokevirtual用于调用对象所属类中的方法(包括从父类中继承的),有动态绑定,是基于当前对象的
  * invokespecial用于调用构造方法<init>,private方法(access_flag区分,直接在当前类查找),直接父类方法(access_flag区分,直接去父类查找)
  * 是静态绑定,基于引用,直接调用
- *
+ * <p>
  * 方法调用时操作数为常量池索引,指向的数据为ConstantMethodref,包含了方法名,描述符,类名, 进行方法调用前对象的直接引用被压栈了
  * 通过栈中的对象直接引用可以找到对应的RTClass,通过RTClass和methodref查找methodInfo,然后进行方法调用
- *
  *
  * @author yangqf
  * @version 1.0 2016/4/5
  */
-public class invokespecial extends OpcodeSupport{
+public class invokespecial extends OpcodeSupport {
     @Override
-    public int opcode(){
+    public int opcode() {
         return 183;
     }
 
     @Override
-    public Object operate(StackFrame frame){
+    public Object operate(StackFrame frame) {
         int operand = fetchOperand(frame, 2);
         //init  Method java/lang/Object."<init>":()V   字节码就一个return, 不做其它任何操作
 
@@ -50,11 +49,11 @@ public class invokespecial extends OpcodeSupport{
         StackFrame newFrame = frame.getThreadStack().createStackFrame(methodInfo);
         //方法调用,填充参数到新栈帧
         //...objectref,x,y->
-        for(int i = newFrame.getLocals().length - 1; i >= 0; i--){
+        for (int i = newFrame.getLocals().length - 1; i >= 0; i--) {
             newFrame.getLocals()[i] = frame.getOperands().pop();
         }
 
-       // System.out.println("invokespecical : " + classNameUtf8Info.string() + ":" + methodName);
+        // System.out.println("invokespecical : " + classNameUtf8Info.string() + ":" + methodName);
         return null;
     }
 }

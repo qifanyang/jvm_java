@@ -8,24 +8,25 @@ import java.util.Map;
 
 /**
  * 方法区,包含类运行时数据
+ *
  * @author yangqf
  * @version 1.0 2016/4/1
  */
-public class RTMethodArea{
+public class RTMethodArea {
 
     private static Map<String, RTClass> classRTMap = new HashMap<>();
 
 
-    public static void register(String key, RTClass classRT){
+    public static void register(String key, RTClass classRT) {
         classRTMap.put(key, classRT);
     }
 
-    private static RTClass findClass(String key){
+    private static RTClass findClass(String key) {
         return classRTMap.get(key);
     }
 
-    public static RTClass loadClass(String name){
-        if(findClass(name) != null){
+    public static RTClass loadClass(String name) {
+        if (findClass(name) != null) {
             return findClass(name);
         }
         String name1 = name.replace(".", "/");
