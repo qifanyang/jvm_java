@@ -1,6 +1,7 @@
 package vm.parser;
 
 /**
+ * 存储无符号byte
  * @author yangqf
  * @version 1.0 2016/3/27
  */

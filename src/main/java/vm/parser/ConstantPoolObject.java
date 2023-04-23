@@ -15,6 +15,10 @@ public abstract class ConstantPoolObject implements Parser {
 
     private ClassFile cf;
 
+    /**
+     * 表明cp_info种类,jvm规范已经定义好,子类参照规范实现即可
+     * @return
+     */
     protected abstract U1 getTag();
 
     /**

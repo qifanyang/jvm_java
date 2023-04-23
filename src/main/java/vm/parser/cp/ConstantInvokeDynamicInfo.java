@@ -17,6 +17,7 @@ public class ConstantInvokeDynamicInfo extends ConstantPoolObject {
     /**
      * the index of BootstrapMethods attribute in ClassFile
      * 需要解析对应的BootstrapMethod attribute
+     * {@link vm.parser.attribute.BootstrapMethodsAttribute.BootstrapMethod}
      */
     U2 bootstrap_method_attr_index;
     U2 name_and_type_index;

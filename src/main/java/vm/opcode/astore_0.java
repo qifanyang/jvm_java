@@ -3,6 +3,7 @@ package vm.opcode;
 import vm.runtime.StackFrame;
 
 /**
+ * 引用出栈存到本地变量表中
  * @author yangqf
  * @version 1.0 2016/4/7
  */

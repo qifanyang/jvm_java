@@ -1,6 +1,7 @@
 package vm.parser;
 
 /**
+ * 存储无符号int, 因为实际不会有超过2G的大小, 使用带符号int存储也无问题
  * @author yangqf
  * @version 1.0 2016/3/27
  */

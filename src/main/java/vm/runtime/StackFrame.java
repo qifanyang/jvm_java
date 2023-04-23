@@ -16,7 +16,13 @@ import java.util.Iterator;
 @lombok.Getter
 @lombok.Setter
 public class StackFrame {
+    /**
+     * 长度在编译时确定,long和double需要使用两个本地本地变量
+     */
     private Object locals[];//用于方法形参和局部变量存储
+    /**
+     * LIFO
+     */
     private OperandStack operands;
 
     private U1 code[];//被调用方法的字节码

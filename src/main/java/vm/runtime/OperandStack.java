@@ -1,6 +1,7 @@
 package vm.runtime;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -9,11 +10,11 @@ import java.util.Stack;
  */
 public class OperandStack {
 
-    private Stack<Object> stack;
+    private LinkedList<Object> stack;
     private int maxSize;
 
     public OperandStack(int size) {
-        stack = new Stack<>();
+        stack = new LinkedList<>();
         maxSize = size;
     }
 

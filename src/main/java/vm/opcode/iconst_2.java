@@ -1,6 +1,5 @@
 package vm.opcode;
 
-import jdk.internal.org.objectweb.asm.Opcodes;
 import vm.runtime.StackFrame;
 
 /**
